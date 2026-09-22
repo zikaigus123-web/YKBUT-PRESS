@@ -3407,56 +3407,59 @@
 
                 // Format Struk Thermal 58mm. Area cetak efektif dibuat +/- 48mm agar aman
                 // untuk printer thermal 58mm yang umumnya memiliki margin fisik kiri/kanan.
-                printArea.innerHTML = `
-                    <div class="thermal-receipt print-bg-none receipt-no-break">
-                        <div style="text-align:center; margin-bottom:9px; padding-bottom:7px; border-bottom:1px dashed #000;">
-                            ${receiptHeader.title ? `<div class="receipt-title">${escapeHtml(receiptHeader.title)}</div>` : ''}
-                            ${receiptHeader.subtitle ? `<div class="receipt-small">${escapeHtml(receiptHeader.subtitle)}</div>` : ''}
-                            ${receiptHeader.address1 ? `<div class="receipt-small">${escapeHtml(receiptHeader.address1)}</div>` : ''}
-                            ${receiptHeader.address2 ? `<div class="receipt-small">${escapeHtml(receiptHeader.address2)}</div>` : ''}
-                            ${receiptHeader.phone ? `<div class="receipt-small">${escapeHtml(receiptHeader.phone)}</div>` : ''}
-                        </div>
+               // Format Struk Thermal 58mm. Area cetak efektif dibuat +/- 48mm agar aman
+// untuk printer thermal 58mm yang umumnya memiliki margin fisik kiri/kanan.
+const grandTotal = Number(itemTotal || order.totalPrice || 0) + Number(order.shippingCost || 0);
 
-                        <div class="receipt-label" style="margin-bottom:9px;">
-                            <div class="receipt-row"><span>No:</span><span>${safe(getOrderDisplayId(order))}</span></div>
-                            <div class="receipt-row"><span>Tgl Cetak:</span><span>${safe(printDate)}</span></div>
-                            <div style="margin-top:5px;">
-                                <div style="font-weight:700;">Pemesan:</div>
-                                <div>${safe(order.customerName)}</div>
-                                <div>${safe(order.customerId || generateCustomerId(order.customerPhone || order.customerName))}</div>
-                                <div>${safe(order.customerPhone)}</div>
-                                ${order.customerAddress ? `<div class="receipt-address" style="margin-top:2px;">${safe(order.customerAddress)}</div>` : ''}
-                            </div>
-                        </div>
+printArea.innerHTML = `
+    <div class="thermal-receipt print-bg-none receipt-no-break">
+        <div style="text-align:center; margin-bottom:9px; padding-bottom:7px; border-bottom:1px dashed #000;">
+            ${receiptHeader.title ? `<div class="receipt-title">${escapeHtml(receiptHeader.title)}</div>` : ''}
+            ${receiptHeader.subtitle ? `<div class="receipt-small">${escapeHtml(receiptHeader.subtitle)}</div>` : ''}
+            ${receiptHeader.address1 ? `<div class="receipt-small">${escapeHtml(receiptHeader.address1)}</div>` : ''}
+            ${receiptHeader.address2 ? `<div class="receipt-small">${escapeHtml(receiptHeader.address2)}</div>` : ''}
+            ${receiptHeader.phone ? `<div class="receipt-small">${escapeHtml(receiptHeader.phone)}</div>` : ''}
+        </div>
 
-                        <div class="receipt-label" style="border-top:1px dashed #000; border-bottom:1px dashed #000; padding:7px 0; margin-bottom:7px;">
-                            <div class="receipt-book-title" style="margin-bottom:4px;">${safe(book ? book.title : 'Buku Terhapus')}</div>
-                            <div class="receipt-row">
-                                <span>${safe(order.qty)} x ${safe(formatRupiah(order.unitPrice))}</span>
-                                <span>${safe(formatRupiah(itemTotal))}</span>
-                            </div>
-                            <div class="receipt-row" style="margin-top:4px;">
-                                <span>Ongkos Kirim</span>
-                                <span>${safe(formatRupiah(order.shippingCost || 0))}</span>
-                            </div>
-                        </div>
+        <div class="receipt-label" style="margin-bottom:9px;">
+            <div class="receipt-row"><span>No:</span><span>${safe(getOrderDisplayId(order))}</span></div>
+            <div class="receipt-row"><span>Tgl Cetak:</span><span>${safe(printDate)}</span></div>
+            <div style="margin-top:5px;">
+                <div style="font-weight:700;">Pemesan:</div>
+                <div>${safe(order.customerName)}</div>
+                <div>${safe(order.customerId || generateCustomerId(order.customerPhone || order.customerName))}</div>
+                <div>${safe(order.customerPhone)}</div>
+                ${order.customerAddress ? `<div class="receipt-address" style="margin-top:2px;">${safe(order.customerAddress)}</div>` : ''}
+            </div>
+        </div>
 
-                        <div class="receipt-row receipt-total" style="margin-bottom:3px;">
-                            <span>TOTAL</span>
-                            <span>${safe(formatRupiah(order.totalPrice))}</span>
-                        </div>
+        <div class="receipt-label" style="border-top:1px dashed #000; border-bottom:1px dashed #000; padding:7px 0; margin-bottom:7px;">
+            <div class="receipt-book-title" style="margin-bottom:4px;">${safe(book ? book.title : 'Buku Terhapus')}</div>
+            <div class="receipt-row">
+                <span>${safe(order.qty)} x ${safe(formatRupiah(order.unitPrice))}</span>
+                <span>${safe(formatRupiah(itemTotal))}</span>
+            </div>
+            <div class="receipt-row" style="margin-top:4px;">
+                <span>Ongkos Kirim</span>
+                <span>${safe(formatRupiah(order.shippingCost || 0))}</span>
+            </div>
+        </div>
 
-                        ${paymentInfoHtml}
-                        ${shippingInfoHtml}
+        <div class="receipt-row receipt-total" style="margin-bottom:3px;">
+            <span>TOTAL</span>
+            <span>${safe(formatRupiah(grandTotal))}</span>
+        </div>
 
-                        <div class="receipt-small" style="margin-top:10px; padding-top:7px; border-top:1px dashed #000; text-align:center;">
-                            <div>Terima Kasih</div>
-                            <div>Telah Memesan di YKBUT Press</div>
-                            <div style="margin-top:3px;">${safe(getOrderDisplayId(order))}</div>
-                        </div>
-                    </div>
-                `;
+        ${paymentInfoHtml}
+        ${shippingInfoHtml}
 
+        <div class="receipt-small" style="margin-top:10px; padding-top:7px; border-top:1px dashed #000; text-align:center;">
+            <div>Terima Kasih</div>
+            <div>Telah Memesan di YKBUT Press</div>
+            <div style="margin-top:3px;">${safe(getOrderDisplayId(order))}</div>
+        </div>
+    </div>
+`;
                 // Tunggu satu frame agar browser selesai merender konten sebelum dialog print.
                 requestAnimationFrame(() => {
                     setTimeout(() => {
