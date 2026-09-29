@@ -13,7 +13,7 @@
 
     <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
+
     <!-- PDF Report: jsPDF + AutoTable -->
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
@@ -917,28 +917,7 @@
     <div id="toast-container" class="fixed top-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
     <div id="login-screen" class="fixed inset-0 bg-corp-dark z-50 flex items-center justify-center transition-all duration-500">
-        <form onsubmit="app.handleLogin(event)" id="form-login" class="space-y-4">
-    <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Email</label>
-        <div class="relative">
-            <i class="ph ph-envelope absolute left-3 top-2.5 text-gray-400 text-xl"></i>
-            <input type="email" id="login-username" required class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-corp-primary outline-none transition" placeholder="admin@ykbut.com">
-        </div>
-    </div>
-    <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-1">Password</label>
-        <div class="relative">
-            <i class="ph ph-lock absolute left-3 top-2.5 text-gray-400 text-xl"></i>
-            <input type="password" id="login-password" required class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-corp-primary outline-none transition" placeholder="••••••••">
-        </div>
-    </div>
-    <div id="login-error" class="hidden bg-red-50 text-red-600 text-sm p-3 rounded-lg border border-red-100 flex items-center">
-        <i class="ph ph-warning-circle mr-2 text-lg"></i> Username atau Password salah!
-    </div>
-    <button type="submit" id="btn-login-submit" class="w-full bg-corp-primary text-white font-bold py-2.5 rounded-lg hover:bg-blue-800 transition shadow-lg mt-4 flex justify-center items-center">
-        <span>Masuk ke Sistem</span>
-    </button>
-</form>
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative overflow-hidden fade-in">
             <div class="absolute top-0 left-0 w-full h-2 bg-corp-primary"></div>
             <div class="text-center mb-8">
                 <!-- TEMPAT LOGO UNTUK HALAMAN LOGIN -->
@@ -950,26 +929,23 @@
                 <span class="text-sm text-corp-primary font-bold tracking-[0.2em] uppercase block">Press System</span>
                 <p class="text-gray-500 text-sm mt-4">Silakan masuk menggunakan kredensial Anda</p>
             </div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">Email</label>
-            <div class="relative">
-              <i class="ph ph-envelope absolute left-3 top-2.5 text-gray-400 text-xl"></i>
-              <input type="email" id="login-username" required class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-corp-primary outline-none transition" placeholder="admin@ykbut.com">
-        </div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Username</label>
+            <form id="form-login" onsubmit="app.handleLogin(event)" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Email</label>
                     <div class="relative">
-                        <i class="ph ph-user absolute left-3 top-2.5 text-gray-400 text-xl"></i>
-                        <input type="text" id="login-username" required class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-corp-primary outline-none transition" placeholder="admin">
+                        <i class="ph ph-envelope absolute left-3 top-2.5 text-gray-400 text-xl"></i>
+                        <input type="email" id="login-username" required autocomplete="username" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-corp-primary outline-none transition" placeholder="admin@ykbut.com">
                     </div>
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Password</label>
                     <div class="relative">
                         <i class="ph ph-lock absolute left-3 top-2.5 text-gray-400 text-xl"></i>
-                        <input type="password" id="login-password" required class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-corp-primary outline-none transition" placeholder="••••••••">
+                        <input type="password" id="login-password" required autocomplete="current-password" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-corp-primary outline-none transition" placeholder="••••••••">
                     </div>
                 </div>
                 <div id="login-error" class="hidden bg-red-50 text-red-600 text-sm p-3 rounded-lg border border-red-100 flex items-center">
-                    <i class="ph ph-warning-circle mr-2 text-lg"></i> Username atau Password salah!
+                    <i class="ph ph-warning-circle mr-2 text-lg"></i> Email atau Password salah!
                 </div>
                 <button type="submit" id="btn-login-submit" class="w-full bg-corp-primary text-white font-bold py-2.5 rounded-lg hover:bg-blue-800 transition shadow-lg mt-4 flex justify-center items-center">
                     <span>Masuk ke Sistem</span>
@@ -1032,10 +1008,10 @@
                     <i class="ph ph-list"></i>
                 </button>
                 <h2 class="text-xl font-bold text-gray-800 cursor-pointer hover:text-corp-primary transition" id="page-title" onclick="app.openSheetConfigModal()" title="Klik untuk Pengaturan Koneksi">Dashboard Analitik</h2>
-                <button onclick="app.openSheetConfigModal()" title="Klik untuk Diagnosa & Pengaturan Koneksi Spreadsheet" class="cursor-pointer">
+                <button onclick="app.openSheetConfigModal()" title="Klik untuk Diagnosa & Pengaturan Koneksi Database" class="cursor-pointer">
                     <div id="sync-status-badge" class="flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition">
                         <span id="sync-status-dot" class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                        <span id="sync-status-text">Mengecek Koneksi Sheets...</span>
+                        <span id="sync-status-text">Mengecek Koneksi Database...</span>
                         <i class="ph ph-gear text-sm ml-1"></i>
                     </div>
                 </button>
@@ -1043,9 +1019,9 @@
             
             <div class="flex items-center space-x-3 header-actions v26-header-actions">
                 <button onclick="app.openSheetConfigModal()" class="px-3 py-1.5 text-xs font-semibold bg-blue-50 hover:bg-blue-100 text-corp-primary rounded-lg flex items-center transition border border-blue-200">
-                    <i class="ph ph-wrench text-base mr-1.5"></i> Setup &amp; Diagnosa Sheets
+                    <i class="ph ph-wrench text-base mr-1.5"></i> Setup &amp; Diagnosa Database
                 </button>
-                <button onclick="app.syncFromSpreadsheet()" title="Reload & sinkronkan ulang dari snapshot Google Sheets terbaru" class="px-3 py-1.5 text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg flex items-center transition border border-gray-300">
+                <button onclick="app.syncFromSpreadsheet()" title="Reload & sinkronkan ulang dari snapshot Supabase terbaru" class="px-3 py-1.5 text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg flex items-center transition border border-gray-300">
                     <i class="ph ph-arrows-clockwise text-sm mr-1.5" id="sync-icon"></i> Reload Data
                 </button>
                 <span class="text-sm text-gray-500 flex items-center border-l pl-3 ml-1">
@@ -1064,74 +1040,12 @@
     <div id="print-area" class="hidden font-sans"></div>
 
     <script>
-        const SUPABASE_URL = 'https://supabase.com/dashboard/project/vmdhkjlrefetwpqoakek';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZGhramxyZWZldHdwcW9ha2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2NjEzMTIsImV4cCI6MjEwNjIzNzMxMn0.LkOmOM9WZZeT8J2LGbXhBo7ATnnHyPNde5EO8qOUG5g';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const SUPABASE_URL = 'https://vmdhkjlrefetwpqoakek.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZGhramxyZWZldHdwcW9ha2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2NjEzMTIsImV4cCI6MjEwNjIzNzMxMn0.LkOmOM9WZZeT8J2LGbXhBo7ATnnHyPNde5EO8qOUG5g';
+        const SUPABASE_PROJECT_REF = 'vmdhkjlrefetwpqoakek';
+        const SUPABASE_CLIENT_VERSION = 'YKBUT-PRESS-SUPABASE-V1';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const apiService = {
-    async fetchAll() {
-        try {
-            // Fetch everything concurrently. RLS policies ensure Viewers can't see the Users table.
-            const [orders, books, settings, users] = await Promise.all([
-                supabase.from('orders').select('*'),
-                supabase.from('books').select('*'),
-                supabase.from('settings').select('*'),
-                currentUser?.role === 'Administrator' ? supabase.from('users').select('*') : Promise.resolve({ data: [] })
-            ]);
-
-            if (orders.error) throw orders.error;
-
-            const settingsObj = {};
-            (settings.data || []).forEach(s => settingsObj[s.key] = s.value);
-
-            return {
-                status: 'success',
-                orders: orders.data || [],
-                books: books.data || [],
-                users: users.data || [],
-                settings: settingsObj
-            };
-        } catch (error) {
-            console.error('Fetch error:', error);
-            return { status: 'error', message: error.message };
-        }
-    },
-
-    async sendAction(action, payload) {
-        try {
-            if (action === 'saveOrder') {
-                const { data, error } = await supabase.from('orders').upsert(payload).select();
-                if (error) throw error;
-                return { status: 'success', order: data[0] };
-            } 
-            if (action === 'deleteOrder') {
-                const { error } = await supabase.from('orders').delete().eq('id', payload.id);
-                if (error) throw error;
-                return { status: 'success' };
-            }
-            if (action === 'saveBook') {
-                const { data, error } = await supabase.from('books').upsert(payload).select();
-                if (error) throw error;
-                return { status: 'success', book: data[0] };
-            }
-            if (action === 'deleteBooksBatch') {
-                const { error } = await supabase.from('books').delete().in('id', payload.ids);
-                if (error) throw error;
-                return { status: 'success' };
-            }
-            if (action === 'saveSettings') {
-                const updates = Object.keys(payload).map(key => ({ key, value: String(payload[key]) }));
-                const { error } = await supabase.from('settings').upsert(updates);
-                if (error) throw error;
-                return { status: 'success' };
-            }
-            return { status: 'error', message: 'Action not supported' };
-        } catch (error) {
-            console.error(`Action ${action} failed:`, error);
-            return { status: 'error', message: error.message };
-        }
-    }
-};
         // V30: Cover buku disesuaikan dengan file GitHub yang saat ini diunggah:
         // B001.jpeg, B002.jpeg, B003.jpeg, dan seterusnya.
         // Folder repository: /cover/ (singular).
@@ -1193,7 +1107,7 @@ const apiService = {
                 addCandidate(`${GITHUB_BOOK_COVER_CONFIG.rawBaseUrl}${encodeURIComponent(githubBookCoverFileName(id, ext))}`);
             });
 
-            // PRIORITAS 4: URL lama yang tersimpan di Google Sheets/LocalStorage.
+            // PRIORITAS 4: URL lama yang tersimpan di Supabase/LocalStorage.
             const stored = normalizeGithubBookCoverUrl(book.imageUrl);
             addCandidate(stored);
 
@@ -1249,29 +1163,8 @@ const apiService = {
         }
         window.__ykbutGithubCoverPreview = window.__ykbutGithubCoverPreview || {};
 
-        function isValidWebAppUrl(url) {
-            return /^https:\/\/script\.google\.com\/macros\/s\/[^\s/]+\/exec(?:\?.*)?$/i.test(String(url || '').trim());
-        }
-
-        function getWebAppUrl() {
-            // V18.1 FINAL: gunakan deployment terbaru sebagai default dan migrasikan
-            // URL deployment lama yang pernah tersimpan di browser. URL yang tersimpan
-            // secara manual tetap dipertahankan selama bukan salah satu URL legacy.
-            const storedUrl = String(localStorage.getItem('ykbut_webapp_url') || '').trim();
-            const legacyUrls = new Set([
-                'https://script.google.com/macros/s/AKfycbwgtF-7VKmf9NYemPsxZ7C24BWi2TEUmIXdSnB0cioMjWf9YXuMk9yUmTeI1fVlaJq9/exec'
-            ]);
-
-            if (!storedUrl || legacyUrls.has(storedUrl) || !isValidWebAppUrl(storedUrl)) {
-                localStorage.setItem('ykbut_webapp_url', SPREADSHEET_CONFIG.DEFAULT_WEB_APP_URL);
-                return SPREADSHEET_CONFIG.DEFAULT_WEB_APP_URL;
-            }
-
-            return storedUrl;
-        }
-
         const SYNC_ENGINE_VERSION = 'V24_SERVER_AUTHORITATIVE_STATUS_EDIT_BACKWARD_COMPAT';
-        const SUPPORTED_SERVER_VERSIONS = new Set(['YKBUT-PRESS-SERVER-V13','YKBUT-PRESS-SERVER-V12','YKBUT-PRESS-SERVER-V11','YKBUT-PRESS-SERVER-V10']);
+        const SUPPORTED_SERVER_VERSIONS = new Set(['YKBUT-PRESS-SUPABASE-V1','YKBUT-PRESS-SERVER-V13','YKBUT-PRESS-SERVER-V12','YKBUT-PRESS-SERVER-V11','YKBUT-PRESS-SERVER-V10']);
         const FINGERPRINT_EXCLUDED_KEYS = new Set(['isNewOrder','isNewCustomer','pendingDisplayNo','localChangedAt']);
 
         const canonicalizeOrderForFingerprint = (order) => {
@@ -1299,8 +1192,8 @@ const apiService = {
         };
 
         let mockUsers = [
-            { id: 'U001', username: 'admin', password: '12345', role: 'Administrator', name: 'Admin Utama' },
-            { id: 'U002', username: 'staff', password: '123', role: 'Staff Operasional', name: 'Petugas Kasir' }
+            { id: 'U001', username: 'admin', role: 'Administrator', name: 'Admin Utama' },
+            { id: 'U002', username: 'staff', role: 'Staff Operasional', name: 'Petugas Kasir' }
         ];
 
         let mockBooks = [
@@ -1315,7 +1208,7 @@ const apiService = {
         const PAYMENT_STATUS = { UNPAID: 'Belum Bayar', DP: 'DP / Sebagian', PAID: 'Lunas' };
 
         // Riwayat status disimpan terpisah di LocalStorage agar tidak mengubah
-        // struktur kolom Google Sheets yang sudah digunakan aplikasi.
+        // struktur kolom Supabase yang sudah digunakan aplikasi.
         let orderHistories = {};
 
         const formatTimelineDate = (dateValue) => {
@@ -1391,7 +1284,7 @@ const apiService = {
         let bookSearchQuery = '';
         let selectedBookIds = [];
         // Queue sinkronisasi dibuat durable agar transaksi lokal tidak hilang ketika
-        // Web App/Google Sheets sedang lambat, offline, atau mengembalikan data parsial.
+        // Web App/Supabase sedang lambat, offline, atau mengembalikan data parsial.
         let pendingOrderSync = {};
         let deletedOrderIds = new Set();
         let confirmedServerOrders = null;
@@ -1448,7 +1341,7 @@ const apiService = {
         };
 
         // Pengaturan header struk thermal. Disimpan di browser agar tidak mengubah
-        // struktur data Orders/Books/Users di Google Sheets.
+        // struktur data Orders/Books/Users di Supabase.
         const DEFAULT_RECEIPT_HEADER = {
             title: 'YKBUT Press',
             subtitle: 'Sistem Penerbitan & Pemesanan',
@@ -1490,60 +1383,501 @@ const apiService = {
             }, 3000);
         }
 
+        const LOCAL_ONLY_ORDER_FIELDS = new Set([
+            'isNewOrder',
+            'isNewCustomer',
+            'pendingDisplayNo',
+            'localChangedAt',
+            'clientRequestId'
+        ]);
+
+        const stripLocalOrderFields = (order) => {
+            const clean = { ...(order || {}) };
+            LOCAL_ONLY_ORDER_FIELDS.forEach(key => delete clean[key]);
+            return clean;
+        };
+
+        const chunkArray = (items, size = 500) => {
+            const chunks = [];
+            for (let i = 0; i < items.length; i += size) chunks.push(items.slice(i, i + size));
+            return chunks;
+        };
+
         const apiService = {
-            buildUrl(action) {
-                const targetUrl = getWebAppUrl();
-                if (!targetUrl || !/^https?:\/\//i.test(targetUrl)) return null;
-                return targetUrl + (targetUrl.includes('?') ? '&' : '?') + 'action=' + encodeURIComponent(action) + '&_t=' + Date.now();
+            async fetchTableAll(table, orderColumn = 'id') {
+                const pageSize = 1000;
+                let from = 0;
+                const all = [];
+
+                while (true) {
+                    let query = supabase.from(table).select('*');
+                    if (orderColumn) query = query.order(orderColumn, { ascending: true });
+                    const { data, error } = await query.range(from, from + pageSize - 1);
+                    if (error) throw error;
+
+                    const page = Array.isArray(data) ? data : [];
+                    all.push(...page);
+
+                    if (page.length < pageSize) break;
+                    from += pageSize;
+                }
+
+                return all;
             },
-            async fetchJson(url, options = {}) {
-                const response = await fetch(url, { redirect: 'follow', ...options });
-                const text = await response.text();
-                let data;
-                try { data = JSON.parse(text); } catch(e) { throw new Error('Respons Web App bukan JSON: ' + text.slice(0,180)); }
-                if (!response.ok) throw new Error('HTTP ' + response.status + ': ' + (data.message || 'Respons server tidak valid'));
-                return data;
-            },
+
             async fetchAll() {
                 try {
-                    const url = this.buildUrl('getAllData');
-                    if (!url) return { status:'unconfigured', message:'Web App URL belum dikonfigurasi.' };
-                    return await this.fetchJson(url, { method:'GET' });
-                } catch(error) {
-                    console.warn('Sync warning:', error);
-                    return { status:'error', message:error.message || 'Gagal terhubung ke Google Sheets' };
+                    const [orders, books, settings, users] = await Promise.all([
+                        this.fetchTableAll('orders', 'id'),
+                        this.fetchTableAll('books', 'id'),
+                        this.fetchTableAll('settings', 'key'),
+                        currentUser?.role === 'Administrator'
+                            ? this.fetchTableAll('users', 'id')
+                            : Promise.resolve([])
+                    ]);
+
+                    const rawSettings = {};
+                    settings.forEach(item => {
+                        if (item && item.key !== undefined && item.key !== null) {
+                            rawSettings[String(item.key)] = item.value;
+                        }
+                    });
+
+                    const settingsObj = {
+                        defaultDiscountPercent: Number(rawSettings.defaultDiscountPercent ?? DEFAULT_LOYALTY_SETTINGS.defaultDiscountPercent),
+                        maxDiscountPercent: Number(rawSettings.maxDiscountPercent ?? DEFAULT_LOYALTY_SETTINGS.maxDiscountPercent),
+                        rupiahPerPoint: Number(rawSettings.rupiahPerPoint ?? DEFAULT_LOYALTY_SETTINGS.rupiahPerPoint),
+                        pointValue: Number(rawSettings.pointValue ?? DEFAULT_LOYALTY_SETTINGS.pointValue),
+                        pointsRedemptionEnabled:
+                            rawSettings.pointsRedemptionEnabled === true ||
+                            String(rawSettings.pointsRedemptionEnabled ?? 'true').toLowerCase() !== 'false'
+                    };
+
+                    return {
+                        status: 'success',
+                        serverVersion: SUPABASE_CLIENT_VERSION,
+                        serverGeneratedAt: new Date().toISOString(),
+                        orders: orders || [],
+                        ordersCount: orders.length,
+                        ordersSnapshotComplete: true,
+                        ordersFingerprint: computeOrdersFingerprint(orders || []),
+                        booksCount: books.length,
+                        usersCount: users.length,
+                        books: books || [],
+                        users: users || [],
+                        settings: settingsObj
+                    };
+                } catch (error) {
+                    console.error('Supabase fetch error:', error);
+                    return {
+                        status: 'error',
+                        message: error?.message || 'Gagal terhubung ke Supabase'
+                    };
                 }
             },
+
             async diagnose() {
                 try {
-                    const url = this.buildUrl('diagnose');
-                    if (!url) return { status:'error', message:'Web App URL belum dikonfigurasi.' };
-                    return await this.fetchJson(url, { method:'GET' });
-                } catch(error) {
-                    return { status:'error', message:error.message || 'Diagnosa gagal' };
+                    const checks = [
+                        ['orders', 'id'],
+                        ['books', 'id'],
+                        ['settings', 'key']
+                    ];
+
+                    if (currentUser?.role === 'Administrator') {
+                        checks.push(['users', 'id']);
+                    }
+
+                    const results = await Promise.all(
+                        checks.map(async ([table, orderColumn]) => {
+                            const data = await this.fetchTableAll(table, orderColumn);
+                            return { table, count: data.length, ok: true };
+                        })
+                    );
+
+                    const tableMap = Object.fromEntries(results.map(x => [x.table, x]));
+
+                    return {
+                        status: 'success',
+                        database: 'Supabase',
+                        projectRef: SUPABASE_PROJECT_REF,
+                        serverVersion: SUPABASE_CLIENT_VERSION,
+                        ordersTable: !!tableMap.orders?.ok,
+                        booksTable: !!tableMap.books?.ok,
+                        settingsTable: !!tableMap.settings?.ok,
+                        usersTable: currentUser?.role === 'Administrator' ? !!tableMap.users?.ok : null,
+                        ordersCount: tableMap.orders?.count || 0,
+                        booksCount: tableMap.books?.count || 0,
+                        usersCount: tableMap.users?.count || 0
+                    };
+                } catch (error) {
+                    console.error('Supabase diagnostic error:', error);
+                    return {
+                        status: 'error',
+                        message: error?.message || 'Diagnosa Supabase gagal'
+                    };
                 }
             },
-            async sendRawAction(action, payload) {
-                const url = this.buildUrl(action);
-                if (!url) return { status:'offline', message:'URL Google Sheets belum diisi' };
-                return await this.fetchJson(url, {
-                    method:'POST', mode:'cors',
-                    headers:{ 'Content-Type':'text/plain;charset=utf-8' },
-                    body:JSON.stringify({ action, data:payload })
-                });
+
+            async saveOrder(payload) {
+                const record = stripLocalOrderFields(payload);
+                const { data, error } = await supabase
+                    .from('orders')
+                    .upsert(record, { onConflict: 'id' })
+                    .select('*')
+                    .single();
+
+                if (error) throw error;
+
+                return {
+                    status: 'success',
+                    id: data?.id ?? record.id ?? '',
+                    customerId: data?.customerId ?? record.customerId ?? '',
+                    order: data || record
+                };
             },
+
+            async updateShippingCost(payload) {
+                if (!payload?.id) throw new Error('ID transaksi tidak ditemukan.');
+
+                const { data: existing, error: findError } = await supabase
+                    .from('orders')
+                    .select('*')
+                    .eq('id', payload.id)
+                    .maybeSingle();
+
+                if (findError) throw findError;
+                if (!existing) throw new Error(`ID transaksi tidak ditemukan di Supabase: ${payload.id}`);
+
+                const newShipping = Math.max(0, Number(payload.shippingCost || 0));
+                const qty = Math.max(0, Number(existing.qty || 0));
+                const unitPrice = Math.max(0, Number(existing.unitPrice || 0));
+                const subtotal = (qty * unitPrice) + newShipping;
+
+                const discountPercent = Math.max(
+                    0,
+                    Number(existing.discountPercent ?? payload.discountPercent ?? 0)
+                );
+
+                let discountAmount = Math.min(
+                    subtotal,
+                    subtotal * discountPercent / 100
+                );
+
+                if (
+                    discountPercent === 0 &&
+                    Number(existing.discountAmount || 0) > 0
+                ) {
+                    discountAmount = Math.min(
+                        subtotal,
+                        Number(existing.discountAmount || 0)
+                    );
+                }
+
+                const pointsUsed = Math.max(
+                    0,
+                    parseInt(existing.pointsUsed ?? payload.pointsUsed ?? 0, 10) || 0
+                );
+
+                const settings = appData.settings || DEFAULT_LOYALTY_SETTINGS;
+                const pointValue = Math.max(0, Number(settings.pointValue || 0));
+                const rupiahPerPoint = Math.max(1, Number(settings.rupiahPerPoint || 10000));
+
+                const pointsDiscount = Math.min(
+                    Math.max(0, subtotal - discountAmount),
+                    pointsUsed * pointValue
+                );
+
+                const totalPrice = Math.max(
+                    0,
+                    subtotal - discountAmount - pointsDiscount
+                );
+
+                const pointsEarned = Math.floor(totalPrice / rupiahPerPoint);
+
+                const paymentStatus = String(
+                    existing.paymentStatus ?? payload.paymentStatus ?? ''
+                );
+
+                let dpAmount = Number(existing.dpAmount ?? payload.dpAmount ?? 0);
+                if (paymentStatus === PAYMENT_STATUS.PAID) {
+                    dpAmount = totalPrice;
+                } else if (paymentStatus === PAYMENT_STATUS.DP) {
+                    dpAmount = Math.min(dpAmount, totalPrice);
+                }
+
+                const update = {
+                    id: existing.id,
+                    shippingCost: newShipping,
+                    subtotal,
+                    discountPercent,
+                    discountAmount,
+                    pointsUsed,
+                    pointsDiscount,
+                    pointsEarned,
+                    totalPrice,
+                    dpAmount
+                };
+
+                const { data, error } = await supabase
+                    .from('orders')
+                    .update(update)
+                    .eq('id', existing.id)
+                    .select('*')
+                    .single();
+
+                if (error) throw error;
+
+                return {
+                    status: 'success',
+                    order: data,
+                    shippingCost: newShipping,
+                    totalPrice,
+                    message: 'Ongkir dan total harga berhasil diperbarui.'
+                };
+            },
+
+            async importOrders(payload) {
+                const incoming = Array.isArray(payload?.orders) ? payload.orders : [];
+                if (!incoming.length) {
+                    return { status: 'success', updated: 0, added: 0, skipped: 0, orders: [] };
+                }
+
+                const records = incoming.map(stripLocalOrderFields);
+                const existingOrders = await this.fetchTableAll('orders', 'id');
+                const existingIds = new Set(existingOrders.map(o => String(o.id)));
+
+                const additions = records.filter(o => !existingIds.has(String(o.id)));
+                const savedOrders = [];
+
+                for (const chunk of chunkArray(records, 500)) {
+                    const { data, error } = await supabase
+                        .from('orders')
+                        .upsert(chunk, { onConflict: 'id' })
+                        .select('*');
+
+                    if (error) throw error;
+                    if (Array.isArray(data)) savedOrders.push(...data);
+                }
+
+                return {
+                    status: 'success',
+                    updated: Math.max(0, records.length - additions.length),
+                    added: additions.length,
+                    skipped: 0,
+                    orders: savedOrders
+                };
+            },
+
+            async deleteOrder(payload) {
+                if (!payload?.id) throw new Error('ID transaksi tidak ditemukan.');
+                const { error } = await supabase
+                    .from('orders')
+                    .delete()
+                    .eq('id', payload.id);
+                if (error) throw error;
+                return { status: 'success' };
+            },
+
+            async saveBook(payload) {
+                const record = { ...(payload || {}) };
+                delete record.isNewOrder;
+                delete record.isNewCustomer;
+                delete record.pendingDisplayNo;
+                delete record.localChangedAt;
+
+                const { data, error } = await supabase
+                    .from('books')
+                    .upsert(record, { onConflict: 'id' })
+                    .select('*')
+                    .single();
+
+                if (error) throw error;
+
+                return {
+                    status: 'success',
+                    id: data?.id ?? record.id ?? '',
+                    book: data || record
+                };
+            },
+
+            async deleteBooksBatch(payload) {
+                const ids = Array.isArray(payload?.ids) ? payload.ids.filter(Boolean) : [];
+                if (!ids.length) return { status: 'success', deleted: 0 };
+
+                const { error } = await supabase
+                    .from('books')
+                    .delete()
+                    .in('id', ids);
+
+                if (error) throw error;
+                return { status: 'success', deleted: ids.length };
+            },
+
+            async deleteBookImage(payload) {
+                const path = String(
+                    payload?.path ||
+                    payload?.storagePath ||
+                    payload?.fileName ||
+                    ''
+                ).trim();
+
+                if (!path) {
+                    return { status: 'success', message: 'Tidak ada file cover Supabase yang perlu dihapus.' };
+                }
+
+                const { error } = await supabase
+                    .storage
+                    .from('book_covers')
+                    .remove([path]);
+
+                if (error) throw error;
+                return { status: 'success', message: 'Cover buku berhasil dihapus.' };
+            },
+
+            async saveSettings(payload) {
+                const settings = payload || {};
+                const updates = Object.keys(settings).map(key => ({
+                    key,
+                    value: String(settings[key])
+                }));
+
+                if (!updates.length) return { status: 'success' };
+
+                const { error } = await supabase
+                    .from('settings')
+                    .upsert(updates, { onConflict: 'key' });
+
+                if (error) throw error;
+                return { status: 'success' };
+            },
+
+            async saveUser(payload) {
+                if (!payload?.id) {
+                    return {
+                        status: 'error',
+                        message: 'User Supabase Auth belum memiliki profile ID.'
+                    };
+                }
+
+                const record = {
+                    id: payload.id,
+                    username: payload.username ?? '',
+                    name: payload.name ?? '',
+                    role: payload.role ?? 'Staff Operasional'
+                };
+
+                const { data: existing, error: findError } = await supabase
+                    .from('users')
+                    .select('*')
+                    .eq('id', payload.id)
+                    .maybeSingle();
+
+                if (findError) throw findError;
+
+                if (!existing) {
+                    return {
+                        status: 'error',
+                        message: 'Profile user belum ada. Buat akun user terlebih dahulu di Supabase Auth, lalu buat profile dengan ID Auth yang sama.'
+                    };
+                }
+
+                const { data, error } = await supabase
+                    .from('users')
+                    .update(record)
+                    .eq('id', payload.id)
+                    .select('*')
+                    .single();
+
+                if (error) throw error;
+
+                if (payload.password && payload.id === currentUser?.id) {
+                    const { error: passwordError } = await supabase.auth.updateUser({
+                        password: String(payload.password)
+                    });
+                    if (passwordError) throw passwordError;
+                }
+
+                return { status: 'success', user: data || record };
+            },
+
+            async deleteUser(payload) {
+                if (!payload?.id) throw new Error('User ID tidak ditemukan.');
+
+                const { error } = await supabase
+                    .from('users')
+                    .delete()
+                    .eq('id', payload.id);
+
+                if (error) throw error;
+
+                return {
+                    status: 'success',
+                    message: 'Profile user berhasil dihapus dari Supabase.'
+                };
+            },
+
+            async repairDuplicateOrderIds() {
+                // `id` is the Supabase primary/unique key, so duplicate IDs should not
+                // be possible at the database level. Keep this action for compatibility
+                // with the existing UI sync engine.
+                return {
+                    status: 'success',
+                    repairedCount: 0,
+                    duplicatesFound: 0,
+                    mappings: {},
+                    message: 'Supabase menjaga ID transaksi tetap unik.'
+                };
+            },
+
             async sendAction(action, payload) {
                 try {
-                    if (action === 'saveOrder' || action === 'saveSettings' || action === 'importOrders') {
-                        const setup = await this.sendRawAction('setupOrders', {});
-                        if (!setup || setup.status !== 'success') {
-                            return { status:'error', message:'Schema Orders gagal disiapkan: ' + (setup?.message || 'deployment Apps Script belum diperbarui') };
-                        }
+                    switch (action) {
+                        case 'saveOrder':
+                            return await this.saveOrder(payload);
+
+                        case 'deleteOrder':
+                            return await this.deleteOrder(payload);
+
+                        case 'saveBook':
+                            return await this.saveBook(payload);
+
+                        case 'deleteBooksBatch':
+                            return await this.deleteBooksBatch(payload);
+
+                        case 'deleteBookImage':
+                            return await this.deleteBookImage(payload);
+
+                        case 'saveSettings':
+                            return await this.saveSettings(payload);
+
+                        case 'saveUser':
+                            return await this.saveUser(payload);
+
+                        case 'deleteUser':
+                            return await this.deleteUser(payload);
+
+                        case 'importOrders':
+                            return await this.importOrders(payload);
+
+                        case 'updateShippingCost':
+                            return await this.updateShippingCost(payload);
+
+                        case 'repairDuplicateOrderIds':
+                            return await this.repairDuplicateOrderIds();
+
+                        default:
+                            return {
+                                status: 'error',
+                                message: `Action tidak didukung: ${action}`
+                            };
                     }
-                    return await this.sendRawAction(action, payload);
-                } catch(error) {
-                    console.warn('Action ' + action + ' result:', error);
-                    return { status:'offline', message:error.message || 'Gagal koneksi server' };
+                } catch (error) {
+                    console.error(`Supabase action ${action} failed:`, error);
+                    return {
+                        status: 'error',
+                        message: error?.message || `Gagal menjalankan action ${action}`
+                    };
                 }
             }
         };
@@ -1589,7 +1923,7 @@ const apiService = {
 
         // V22: satu sumber perhitungan nilai yang ditampilkan pada Data Pemesanan
         // dan Struk Thermal. Prioritas utama mengikuti kolom `subtotal` (kolom R)
-        // dari Google Sheets, yang pada sistem ini merepresentasikan harga buku + ongkir
+        // dari Supabase, yang pada sistem ini merepresentasikan harga buku + ongkir
         // sebelum potongan poin/diskon. Fallback hanya untuk data lama yang belum memiliki subtotal.
         function getOrderSubtotalAmount(order) {
             const rawSubtotal = order?.subtotal;
@@ -1662,12 +1996,30 @@ const apiService = {
         const app = {
             currentView: 'dashboard',
             
-            init() {
+            async init() {
                 this.loadLocalStorage();
+
+                try {
+                    const { data: { session }, error } = await supabase.auth.getSession();
+                    if (error) throw error;
+
+                    if (session?.user?.id) {
+                        const loaded = await this.loadUserProfile(session.user.id, session.user.email);
+                        if (!loaded) {
+                            await supabase.auth.signOut();
+                        }
+                    }
+                } catch (error) {
+                    console.error('Supabase session error:', error);
+                }
+
                 this.checkAuth();
-                this.syncFromSpreadsheet();
+
+                if (currentUser) {
+                    await this.syncFromSpreadsheet();
+                }
+
                 // Retry transaksi yang tertunda setiap 60 detik selama aplikasi terbuka.
-                // Tidak mengubah UI, hanya memastikan kegagalan koneksi tidak menjadi kehilangan data.
                 if (!this._pendingSyncTimer) {
                     this._pendingSyncTimer = setInterval(() => this.syncPendingOrders(), 60000);
                 }
@@ -1686,7 +2038,17 @@ const apiService = {
                     if (savedOrders) appData.orders = JSON.parse(savedOrders);
                     assignPendingDisplayIds();
                     if (savedBooks) mockBooks = JSON.parse(savedBooks);
-                    if (savedUsers) mockUsers = JSON.parse(savedUsers);
+                    if (savedUsers) {
+                        const storedUsers = JSON.parse(savedUsers);
+                        mockUsers = Array.isArray(storedUsers)
+                            ? storedUsers.map(user => ({
+                                id: user?.id || '',
+                                username: user?.username == null ? '' : String(user.username),
+                                name: user?.name == null ? '' : String(user.name),
+                                role: user?.role == null ? '' : String(user.role)
+                            }))
+                            : [];
+                    }
                     if (savedSettings) appData.settings = { ...DEFAULT_LOYALTY_SETTINGS, ...JSON.parse(savedSettings) };
                     if (savedPending) pendingOrderSync = JSON.parse(savedPending) || {};
                     if (savedDeleted) deletedOrderIds = new Set(JSON.parse(savedDeleted) || []);
@@ -1697,10 +2059,10 @@ const apiService = {
                         try { lastSyncMeta = JSON.parse(savedLastSyncMeta) || null; } catch(e) { lastSyncMeta = null; }
                     }
                     // V20 migration: LocalStorage lama dari V16/V17/V18/V19 tidak boleh
-                    // menyembunyikan order yang sebenarnya masih ada di Google Sheets.
+                    // menyembunyikan order yang sebenarnya masih ada di Supabase.
                     // Terutama `ykbut_deleted_order_ids` dapat berisi tombstone stale dari
                     // perangkat lama dan menyebabkan ORD-001/ORD-002 hilang dari tabel walau
-                    // order tersebut masih ada di server. Karena Google Sheets adalah source of
+                    // order tersebut masih ada di server. Karena Supabase adalah source of
                     // truth, baseline lama dan seluruh tombstone lokal dibersihkan saat migrasi.
                     if (savedSyncEngineVersion !== SYNC_ENGINE_VERSION) {
                         knownServerOrderIds = new Set();
@@ -1725,7 +2087,15 @@ const apiService = {
                 try {
                     localStorage.setItem('ykbut_orders', JSON.stringify(appData.orders));
                     localStorage.setItem('ykbut_books', JSON.stringify(mockBooks));
-                    localStorage.setItem('ykbut_users', JSON.stringify(mockUsers));
+                    localStorage.setItem(
+                        'ykbut_users',
+                        JSON.stringify((mockUsers || []).map(user => ({
+                            id: user?.id || '',
+                            username: user?.username || '',
+                            name: user?.name || '',
+                            role: user?.role || ''
+                        })))
+                    );
                     localStorage.setItem('ykbut_loyalty_settings', JSON.stringify(appData.settings || DEFAULT_LOYALTY_SETTINGS));
                     localStorage.setItem('ykbut_pending_order_sync', JSON.stringify(pendingOrderSync || {}));
                     localStorage.setItem('ykbut_deleted_order_ids', JSON.stringify(Array.from(deletedOrderIds || [])));
@@ -1828,7 +2198,7 @@ const apiService = {
                 };
 
                 if(syncIcon) syncIcon.classList.add('animate-spin');
-                setBadge('checking', 'Mengecek Koneksi...', 'Mengambil snapshot terbaru dari Google Sheets.');
+                setBadge('checking', 'Mengecek Koneksi...', 'Mengambil snapshot terbaru dari Supabase.');
 
                 // Local data hanya dipakai sebagai fallback/offline cache dan untuk
                 // mempertahankan transaksi yang benar-benar masih berada di pending queue.
@@ -1846,7 +2216,7 @@ const apiService = {
                         message: serverData?.message || 'Server tidak dapat diakses'
                     };
                     this.saveLocalStorage();
-                    setBadge('warning', serverData?.status === 'unconfigured' ? 'Belum Terhubung (URL Kosong)' : 'Belum Terhubung (Data Lokal Dipertahankan)', 'Google Sheets belum berhasil diakses. Data lokal dipertahankan sebagai fallback.');
+                    setBadge('warning', serverData?.status === 'unconfigured' ? 'Belum Terhubung (URL Kosong)' : 'Belum Terhubung (Data Lokal Dipertahankan)', 'Supabase belum berhasil diakses. Data lokal dipertahankan sebagai fallback.');
                     syncInProgress = false;
                     return;
                 }
@@ -1859,7 +2229,7 @@ const apiService = {
                         const refreshed = await apiService.fetchAll();
                         if (refreshed && refreshed.status === 'success') serverData = refreshed;
                     } else if (repair && repair.status !== 'success') {
-                        showToast('Ditemukan ID transaksi duplikat. Update Apps Script ke V11 diperlukan.', 'error');
+                        showToast('Ditemukan ID transaksi duplikat. Periksa constraint unique pada kolom id di Supabase.', 'error');
                     }
                 }
 
@@ -1961,7 +2331,7 @@ const apiService = {
                 // === SERVER AUTHORITATIVE ===
                 // V20: jangan pernah memfilter snapshot server dengan deletedOrderIds.
                 // Tombstone lokal adalah artefak browser lama dan dapat menyembunyikan order
-                // yang masih benar-benar ada di Google Sheets. Google Sheets selalu menang.
+                // yang masih benar-benar ada di Supabase. Supabase selalu menang.
                 // Setelah snapshot authoritative diterima, seluruh tombstone lokal dibuang.
                 deletedOrderIds = new Set();
                 localStorage.removeItem('ykbut_deleted_order_ids');
@@ -2000,14 +2370,13 @@ const apiService = {
                 if (serverData.settings && typeof serverData.settings === 'object') {
                     appData.settings = { ...DEFAULT_LOYALTY_SETTINGS, ...serverData.settings };
                 }
-                if (serverData.users && Array.isArray(serverData.users) && serverData.users.length > 0) {
+                if (currentUser?.role === 'Administrator' && Array.isArray(serverData.users)) {
                     mockUsers = serverData.users.map(u => ({
                         ...u,
                         username: u.username == null ? '' : String(u.username),
-                        password: u.password == null ? '' : String(u.password)
+                        name: u.name == null ? '' : String(u.name),
+                        role: u.role == null ? '' : String(u.role)
                     }));
-                    const hasAdmin = mockUsers.some(u => String(u.username || '').trim().toLowerCase() === 'admin');
-                    if (!hasAdmin) mockUsers.unshift({ id: 'U001', username: 'admin', password: '12345', role: 'Administrator', name: 'Admin Utama' });
                 }
 
                 // Baseline lama sengaja di-reset menjadi baseline server terbaru.
@@ -2022,7 +2391,7 @@ const apiService = {
                 const pendingCount = Object.keys(pendingOrderSync || {}).length;
                 const displayText = pendingResult.failed > 0
                     ? 'Tersinkron • Ada antrean sync'
-                    : 'Terhubung ke Google Sheets';
+                    : 'Terhubung ke Supabase';
                 const displayTitle = `Server authoritative (${authoritativeMode}) • ${serverOrders.length} transaksi` + (serverData.ordersFingerprint ? ` • FP ${serverData.ordersFingerprint}` : '') + (pendingCount ? ` • Pending ${pendingCount}` : '');
                 setBadge(pendingResult.failed > 0 ? 'warning' : 'success', displayText, displayTitle);
 
@@ -2033,7 +2402,7 @@ const apiService = {
                 showToast(
                     pendingResult.failed > 0
                         ? `Data server terbaru dimuat. ${pendingResult.failed} transaksi masih menunggu sinkronisasi.`
-                        : `Data berhasil disinkronkan dari Google Sheets (${serverOrders.length} transaksi).`,
+                        : `Data berhasil disinkronkan dari Supabase (${serverOrders.length} transaksi).`,
                     pendingResult.failed > 0 ? 'info' : 'success'
                 );
                 syncInProgress = false;
@@ -2065,63 +2434,89 @@ const apiService = {
                 }
             },
 
-            handleLogin(e) {
-                async init() {
-        this.loadLocalStorage();
-        
-        // Check for existing Supabase session
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-            await this.loadUserProfile(session.user.id);
-        }
-        
-        this.checkAuth();
-        if (currentUser) this.syncFromSpreadsheet();
-    },
+            async loadUserProfile(userId, email = '') {
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('*')
+                    .eq('id', userId)
+                    .maybeSingle();
 
-    async loadUserProfile(userId) {
-        const { data, error } = await supabase.from('users').select('*').eq('id', userId).single();
-        if (!error && data) {
-            currentUser = data;
-        }
-    },
+                if (error) {
+                    console.error('Load user profile error:', error);
+                    return false;
+                }
 
-    async handleLogin(e) {
-        e.preventDefault();
-        const email = document.getElementById('login-username').value.trim();
-        const password = document.getElementById('login-password').value;
-        const errorMsg = document.getElementById('login-error');
-        const btnSubmit = document.getElementById('btn-login-submit');
+                if (!data) {
+                    console.warn('Supabase Auth user has no matching users profile:', userId);
+                    return false;
+                }
 
-        btnSubmit.innerHTML = '<i class="ph ph-spinner animate-spin mr-2"></i> Verifikasi...';
-        btnSubmit.disabled = true;
+                currentUser = {
+                    ...data,
+                    email: data.email || email || ''
+                };
 
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                return true;
+            },
 
-        if (error) {
-            errorMsg.innerHTML = `<i class="ph ph-warning-circle mr-2 text-lg"></i> ${error.message}`;
-            errorMsg.classList.remove('hidden');
-        } else {
-            await this.loadUserProfile(data.user.id);
-            errorMsg.classList.add('hidden');
-            document.getElementById('form-login').reset();
-            showToast(`Selamat datang, ${currentUser.name}!`, 'success');
-            this.checkAuth();
-            this.syncFromSpreadsheet();
-        }
+            async handleLogin(e) {
+                e.preventDefault();
 
-        btnSubmit.innerHTML = '<span>Masuk ke Sistem</span>';
-        btnSubmit.disabled = false;
-    },
+                const email = document.getElementById('login-username').value.trim();
+                const password = document.getElementById('login-password').value;
+                const errorMsg = document.getElementById('login-error');
+                const btnSubmit = document.getElementById('btn-login-submit');
 
-    async logout() {
-        await supabase.auth.signOut();
-        currentUser = null;
-        appData.orders = [];
-        mockBooks = [];
-        showToast('Anda telah keluar dari sistem.');
-        this.checkAuth();
-    },
+                if (!email || !password) return;
+
+                btnSubmit.innerHTML = '<i class="ph ph-spinner animate-spin mr-2"></i> Verifikasi...';
+                btnSubmit.disabled = true;
+                errorMsg.classList.add('hidden');
+
+                try {
+                    const { data, error } = await supabase.auth.signInWithPassword({
+                        email,
+                        password
+                    });
+
+                    if (error) throw error;
+
+                    const loaded = await this.loadUserProfile(
+                        data?.user?.id,
+                        data?.user?.email || email
+                    );
+
+                    if (!loaded) {
+                        await supabase.auth.signOut();
+                        throw new Error('Akun berhasil login, tetapi profile pengguna belum ditemukan di tabel users.');
+                    }
+
+                    document.getElementById('form-login').reset();
+                    showToast(`Selamat datang, ${currentUser.name || currentUser.email || email}!`, 'success');
+                    this.checkAuth();
+                    await this.syncFromSpreadsheet();
+                } catch (error) {
+                    currentUser = null;
+                    errorMsg.innerHTML = `<i class="ph ph-warning-circle mr-2 text-lg"></i> ${escapeHtml(error?.message || 'Email atau Password salah.')}`;
+                    errorMsg.classList.remove('hidden');
+                } finally {
+                    btnSubmit.innerHTML = '<span>Masuk ke Sistem</span>';
+                    btnSubmit.disabled = false;
+                }
+            },
+
+            async logout() {
+                try {
+                    await supabase.auth.signOut();
+                } catch (error) {
+                    console.warn('Supabase logout error:', error);
+                }
+
+                currentUser = null;
+                confirmedServerOrders = null;
+                showToast('Anda telah keluar dari sistem.');
+                this.checkAuth();
+            },
 
             updateDate() {
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -2446,7 +2841,7 @@ const apiService = {
                     ORDER_STATUS.COMPLETED
                 ].map(status => dashboardOrders.filter(order => order.status === status).length);
 
-                const urlSet = !!getWebAppUrl();
+                const urlSet = true;
 
                 container.innerHTML = `
                     <div class="fade-in space-y-6">
@@ -2455,8 +2850,8 @@ const apiService = {
                             <div class="flex items-center space-x-3">
                                 <i class="ph ph-warning-circle text-2xl text-amber-600"></i>
                                 <div>
-                                    <p class="font-bold text-sm">Aplikasi Belum Terhubung dengan Google Spreadsheet Anda</p>
-                                    <p class="text-xs text-amber-700">Silakan masukkan Web App URL Apps Script Anda agar data tersimpan otomatis di Google Sheets.</p>
+                                    <p class="font-bold text-sm">Aplikasi Belum Terhubung dengan Supabase</p>
+                                    <p class="text-xs text-amber-700">Pastikan project Supabase dan policy RLS aktif agar data dapat dibaca dan disimpan.</p>
                                 </div>
                             </div>
                             <button onclick="app.openSheetConfigModal()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg transition flex items-center shadow">
@@ -3412,7 +3807,7 @@ const apiService = {
                             </div>
                             <div class="p-6 space-y-3">
                                 <p class="text-sm text-gray-700">Apakah Anda yakin ingin menghapus pesanan <strong>${getOrderDisplayId(order)}</strong> atas nama <strong>${order.customerName}</strong>?</p>
-                                <p class="text-xs text-red-500 italic">* Tindakan ini juga akan menghapus data tersebut dari Google Sheets secara permanen.</p>
+                                <p class="text-xs text-red-500 italic">* Tindakan ini juga akan menghapus data tersebut dari Supabase secara permanen.</p>
                             </div>
                             <div class="p-4 bg-gray-50 border-t border-gray-200 flex justify-end space-x-3">
                                 <button onclick="app.closeModal()" class="px-4 py-2 text-gray-600 font-medium hover:bg-gray-200 rounded-lg transition">Batal</button>
@@ -3436,7 +3831,7 @@ const apiService = {
                 this.closeModal();
                 this.renderOrders(document.getElementById('app-content'));
 
-                showToast(`Menghapus pesanan ${orderId} dari Google Sheets...`, 'info');
+                showToast(`Menghapus pesanan ${orderId} dari Supabase...`, 'info');
                 const res = await apiService.sendAction('deleteOrder', { id: orderId });
                 if (res && res.status === 'success') {
                     this.saveLocalStorage();
@@ -3538,7 +3933,7 @@ const apiService = {
                 this.queueOrderForSync(order);
                 this.closeModal();
                 this.renderOrders(document.getElementById('app-content'));
-                showToast('Mengirim perubahan ongkir ke Google Sheets...', 'info');
+                showToast('Mengirim perubahan ongkir ke Supabase...', 'info');
 
                 let res = await apiService.sendAction('updateShippingCost', {
                     id: order.id,
@@ -3566,7 +3961,7 @@ const apiService = {
                     this.renderOrders(document.getElementById('app-content'));
                     showToast(`Ongkir ${formatRupiah(order.shippingCost)} berhasil disimpan. Total harga menjadi ${formatRupiah(order.totalPrice)}.`, 'success');
                 } else {
-                    showToast('Gagal menyimpan ongkir ke Google Sheets: ' + (res?.message || 'deployment belum siap'), 'error');
+                    showToast('Gagal menyimpan ongkir ke Supabase: ' + (res?.message || 'deployment belum siap'), 'error');
                     await this.syncFromSpreadsheet();
                 }
             },
@@ -3696,7 +4091,7 @@ const apiService = {
                 this.closeModal();
                 this.renderOrders(document.getElementById('app-content'));
 
-                showToast('Mengirim update ke Google Sheets...', 'info');
+                showToast('Mengirim update ke Supabase...', 'info');
                 // V24: jangan kirim clientRequestId lama saat EDIT. Deployment V11 menggunakan
                 // clientRequestId sebagai idempotency key dan dapat mengembalikan success tanpa
                 // menulis perubahan jika requestId lama ditemukan. Dengan menghapus field ini,
@@ -3711,7 +4106,7 @@ const apiService = {
                     if (verify.ok) {
                         delete pendingOrderSync[String(order.id)];
                         this.saveLocalStorage();
-                        showToast('Perubahan status berhasil tersimpan dan diverifikasi di Google Sheets!', 'success');
+                        showToast('Perubahan status berhasil tersimpan dan diverifikasi di Supabase!', 'success');
                     } else {
                         // Pending tetap dipertahankan. Retry otomatis akan mengirim tanpa clientRequestId.
                         const retryPayload = { ...editPayload, localChangedAt: Date.now() };
@@ -3719,14 +4114,14 @@ const apiService = {
                         pendingOrderSync[String(order.id)] = retryPayload;
                         this.saveLocalStorage();
                         console.error('Verifikasi perubahan status gagal:', verify);
-                        showToast('Perubahan tampil di aplikasi, tetapi belum terverifikasi di Google Sheets. Sistem akan mencoba menyimpan ulang otomatis.', 'error');
+                        showToast('Perubahan tampil di aplikasi, tetapi belum terverifikasi di Supabase. Sistem akan mencoba menyimpan ulang otomatis.', 'error');
                     }
                 } else {
                     const retryPayload = { ...editPayload, localChangedAt: Date.now() };
                     delete retryPayload.clientRequestId;
                     pendingOrderSync[String(order.id)] = retryPayload;
                     this.saveLocalStorage();
-                    showToast('Google Sheets belum menerima perubahan. Update tetap diantrikan dan akan dicoba kembali otomatis.', 'error');
+                    showToast('Supabase belum menerima perubahan. Update tetap diantrikan dan akan dicoba kembali otomatis.', 'error');
                 }
             },
 
@@ -4076,7 +4471,7 @@ const apiService = {
                     if (pStatus !== PAYMENT_STATUS.UNPAID) orderHistories[newOrder.id].payment.push({ status: pStatus, date: newOrder.date });
                     saveOrderHistories();
                     this.queueOrderForSync(newOrder);
-                    showToast('Pesanan dibuat! Menyimpan ke Google Sheets...', 'info');
+                    showToast('Pesanan dibuat! Menyimpan ke Supabase...', 'info');
                     
                     app.navigate('orders');
                     
@@ -4113,13 +4508,13 @@ const apiService = {
                     if(resOrder && resOrder.status === 'success') {
                         const verify = await verifyOrderDateOnServer(newOrder.id, newOrder.date);
                         if (verify.ok) {
-                            showToast('Pesanan, tanggal & update stok tersimpan di Google Sheets!', 'success');
+                            showToast('Pesanan, tanggal & update stok tersimpan di Supabase!', 'success');
                         } else {
-                            showToast('Pesanan tersimpan, tetapi tanggal belum terbaca dari Google Sheets. Periksa deployment Apps Script.', 'error');
+                            showToast('Pesanan tersimpan, tetapi tanggal belum terbaca dari Supabase. Periksa policy RLS dan struktur tabel Supabase.', 'error');
                             console.error('Verifikasi tanggal pesanan baru gagal:', verify);
                         }
                     } else {
-                        showToast('Pesanan tersimpan lokal, tetapi Google Sheets menolak: ' + (resOrder?.message || 'deployment belum siap'), 'error');
+                        showToast('Pesanan tersimpan lokal, tetapi Supabase menolak: ' + (resOrder?.message || 'deployment belum siap'), 'error');
                         console.error('saveOrder gagal:', resOrder);
                     }
                 });
@@ -4426,7 +4821,7 @@ const apiService = {
                                 <ul class="max-h-40 overflow-y-auto bg-gray-50 p-3 rounded-lg border text-xs text-gray-600 divide-y divide-gray-200">
                                     ${booksToDelete.map(b => `<li class="py-1 flex justify-between"><span>${b.title}</span><span class="font-bold text-gray-500 font-mono">${b.id}</span></li>`).join('')}
                                 </ul>
-                                <p class="text-xs text-red-500 italic">* Tindakan ini juga akan memperbarui data di Google Sheets.</p>
+                                <p class="text-xs text-red-500 italic">* Tindakan ini juga akan memperbarui data di Supabase.</p>
                             </div>
                             <div class="p-4 bg-gray-50 border-t border-gray-200 flex justify-end space-x-3">
                                 <button onclick="app.closeModal()" class="px-4 py-2 text-gray-600 font-medium hover:bg-gray-200 rounded-lg transition">Batal</button>
@@ -4447,7 +4842,7 @@ const apiService = {
                 this.closeModal();
                 this.renderBooks(document.getElementById('app-content'));
                 
-                showToast(`Menghapus ${deletedIds.length} buku dari Google Sheets...`, 'info');
+                showToast(`Menghapus ${deletedIds.length} buku dari Supabase...`, 'info');
                 await apiService.sendAction('deleteBooksBatch', { ids: deletedIds });
                 showToast(`Berhasil menghapus ${deletedIds.length} buku!`, 'success');
             },
@@ -4685,7 +5080,7 @@ const apiService = {
                         }
                         this.saveLocalStorage();
                         app.navigate('books');
-                        showToast('Menyimpan data buku ke Google Sheets...', 'info');
+                        showToast('Menyimpan data buku ke Supabase...', 'info');
                         const saveRes = await apiService.sendAction('saveBook', bookData);
                         if (saveRes?.status !== 'success') throw new Error(saveRes?.message || 'Data buku gagal disimpan.');
                         showToast(`Data buku tersimpan. Pastikan cover GitHub memakai nama ${githubBookCoverFileName(bookData.id)} di folder /cover/.`, 'success');
@@ -4711,21 +5106,71 @@ const apiService = {
                 showToast(`Cover ${payload.fileName} siap di-upload ke GitHub /cover.`, 'success');
             },
 
-           async uploadBookCoverToSupabase(file, bookId) {
-        const fileName = `${bookId}_${Date.now()}.jpg`;
-        
-        const { data, error } = await supabase.storage
-            .from('book_covers')
-            .upload(fileName, file, { cacheControl: '3600', upsert: true });
+            async readAndCompressBookImage(file, bookId) {
+                const maxWidth = 900;
+                const maxHeight = 1200;
+                const quality = 0.82;
+                const imageData = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onerror = () => reject(new Error('Gagal membaca file gambar.'));
+                    reader.onload = () => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const ratio = Math.min(1, maxWidth / img.width, maxHeight / img.height);
+                            const canvas = document.createElement('canvas');
+                            canvas.width = Math.max(1, Math.round(img.width * ratio));
+                            canvas.height = Math.max(1, Math.round(img.height * ratio));
+                            const ctx = canvas.getContext('2d');
+                            ctx.fillStyle = '#ffffff';
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            resolve(canvas.toDataURL('image/jpeg', quality));
+                        };
+                        img.onerror = () => reject(new Error('Format gambar tidak dapat diproses.'));
+                        img.src = reader.result;
+                    };
+                    reader.readAsDataURL(file);
+                });
+                return {
+                    imageData,
+                    mimeType: 'image/jpeg',
+                    fileName: `BOOK_${String(bookId || 'BOOK').replace(/[^A-Za-z0-9_-]/g,'_')}_${Date.now()}.jpg`
+                };
+            },
 
-        if (error) throw error;
+            async deleteUser(userId) {
+                if (!currentUser || currentUser.role !== 'Administrator') {
+                    showToast('Hanya Administrator yang dapat menghapus user.', 'error');
+                    return;
+                }
 
-        const { data: urlData } = supabase.storage
-            .from('book_covers')
-            .getPublicUrl(fileName);
+                if (!userId || userId === currentUser.id) {
+                    showToast('User ini tidak dapat dihapus.', 'error');
+                    return;
+                }
 
-        return urlData.publicUrl;
-    },
+                const user = mockUsers.find(item => String(item.id) === String(userId));
+                if (!user) return;
+
+                const confirmed = window.confirm(
+                    `Hapus profile user "${user.name || user.username || user.id}"?`
+                );
+                if (!confirmed) return;
+
+                const result = await apiService.sendAction('deleteUser', { id: userId });
+                if (!result || result.status !== 'success') {
+                    showToast(
+                        'Profile user gagal dihapus: ' + (result?.message || 'Terjadi kesalahan.'),
+                        'error'
+                    );
+                    return;
+                }
+
+                mockUsers = mockUsers.filter(item => String(item.id) !== String(userId));
+                this.saveLocalStorage();
+                this.renderUsers(document.getElementById('app-content'));
+                showToast('Profile user berhasil dihapus.', 'success');
+            },
 
             renderUsers(container) {
                 let tableRows = mockUsers.map((user) => `
@@ -4833,7 +5278,7 @@ const apiService = {
                 this.closeModal();
                 showToast('Pengaturan diskon & poin disimpan. Menyinkronkan...', 'info');
                 const res = await apiService.sendAction('saveSettings', appData.settings);
-                showToast(res?.status === 'success' ? 'Pengaturan berhasil tersimpan di Google Sheets.' : 'Pengaturan tersimpan lokal, tetapi belum tersimpan di Google Sheets.', res?.status === 'success' ? 'success' : 'error');
+                showToast(res?.status === 'success' ? 'Pengaturan berhasil tersimpan di Supabase.' : 'Pengaturan tersimpan lokal, tetapi belum tersimpan di Supabase.', res?.status === 'success' ? 'success' : 'error');
             },
 
             openUserModal(userId = null) {
@@ -4914,7 +5359,7 @@ const apiService = {
                 this.closeModal();
                 this.renderUsers(document.getElementById('app-content'));
 
-                showToast('Menyimpan perubahan ke Google Sheets...', 'info');
+                showToast('Menyimpan perubahan ke Supabase...', 'info');
                 await apiService.sendAction('saveUser', targetUser);
                 showToast('Data pengguna berhasil diperbarui!', 'success');
             },
@@ -5010,593 +5455,85 @@ const apiService = {
             },
 
             openSheetConfigModal() {
-                const currentUrl = getWebAppUrl();
-                // KODE APPS SCRIPT YANG DIUPGRADE (Membaca header dinamis)
-                const appsScriptCode = `// KODE GOOGLE APPS SCRIPT YKBUT PRESS
-// Versi: V13 Server-Authoritative + Unique ORD IDs + Status Edit Persistence + Book Cover Upload + Visual Catalog
-function doGet(e) { return handleRequest(e); }
-function doPost(e) { return handleRequest(e); }
+                const modalHtml = `
+                    <div id="sheet-config-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center fade-in p-4">
+                        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden">
+                            <div class="p-5 border-b bg-gray-50 flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-bold text-lg text-gray-800">Pengaturan Koneksi Database</h3>
+                                    <p class="text-xs text-gray-500 mt-1">Koneksi aplikasi menggunakan Supabase.</p>
+                                </div>
+                                <button onclick="app.closeModal()" class="text-gray-500 hover:text-red-500">
+                                    <i class="ph ph-x text-xl"></i>
+                                </button>
+                            </div>
 
-function handleRequest(e) {
-  var lock = LockService.getScriptLock();
-  lock.tryLock(10000);
-  try {
-    var ss = SpreadsheetApp.openById('115m5DYcwSiH6cEOkIBWgdsBG_59a6SPHyWj4V0EZqp8');
-    var action = e && e.parameter ? e.parameter.action : null;
-    var postData = null;
-    if (e && e.postData && e.postData.contents) {
-      try { var parsed = JSON.parse(e.postData.contents); action = parsed.action || action; postData = parsed.data; } catch(err) {}
-    }
-    var result = {};
-    if (action === 'ping') {
-      result = { status:'success', message:'Koneksi Berhasil!', spreadsheetId:ss.getId(), spreadsheetName:ss.getName(), serverVersion:'YKBUT-PRESS-SERVER-V13' };
-    } else if (action === 'diagnose') {
-      ensureOrdersSchema(ss); ensureBooksSchema(ss); ensureSettingsSchema(ss);
-      var diagSheet = ss.getSheetByName('Orders');
-      var repairDiag = repairDuplicateOrderIds(diagSheet);
-      var diagHeaders = diagSheet ? diagSheet.getRange(1,1,1,diagSheet.getLastColumn()).getValues()[0].map(function(h){return String(h).trim();}) : [];
-      result = { status:'success', spreadsheetId:ss.getId(), spreadsheetName:ss.getName(), ordersSheet:!!diagSheet, headers:diagHeaders, hasDateColumn:diagHeaders.indexOf('date') !== -1, settingsSheet:!!ss.getSheetByName('Settings'), serverVersion:'YKBUT-PRESS-SERVER-V13', ordersCount:diagSheet ? Math.max(0, diagSheet.getLastRow()-1) : 0, duplicateOrderIds:repairDiag.duplicatesFound, repairedOrderIds:repairDiag.repairedCount };
-    } else if (action === 'getAllData') {
-      ensureOrdersSchema(ss); ensureBooksSchema(ss); ensureSettingsSchema(ss);
-      var orderRepair = repairDuplicateOrderIds(ss.getSheetByName('Orders'));
-      var ordersSnapshot = getSheetData(ss,'Orders');
-      var booksSnapshot = getSheetData(ss,'Books');
-      var usersSnapshot = getSheetData(ss,'Users');
-      result = {
-        status:'success',
-        serverVersion:'YKBUT-PRESS-SERVER-V13',
-        serverGeneratedAt:new Date().toISOString(),
-        orders:ordersSnapshot,
-        ordersCount:ordersSnapshot.length,
-        ordersSnapshotComplete:true,
-        ordersFingerprint:computeOrdersFingerprint(ordersSnapshot),
-        orderIdRepair:orderRepair,
-        booksCount:booksSnapshot.length,
-        usersCount:usersSnapshot.length,
-        books:booksSnapshot,
-        users:usersSnapshot,
-        settings:getSettings(ss)
-      };
-    } else if (action === 'setupOrders') {
-      ensureOrdersSchema(ss); ensureBooksSchema(ss); ensureSettingsSchema(ss);
-      result = { status:'success', message:'Struktur Orders dan Settings berhasil diperbarui.' };
-    } else if (action === 'saveSettings') {
-      ensureSettingsSchema(ss); saveSettings(ss, postData || {});
-      result = { status:'success', message:'Pengaturan tersimpan.' };
-    } else if (action === 'reserveCustomerId') {
-      ensureOrdersSchema(ss);
-      var reservedId = reserveNextCustomerId(ss.getSheetByName('Orders'));
-      result = { status:'success', customerId:reservedId, message:'Customer ID unik berhasil dibuat.' };
-    } else if (action === 'saveOrder') {
-      if (!postData) throw new Error('Data pesanan tidak ditemukan.');
-      ensureOrdersSchema(ss); ensureSettingsSchema(ss);
-      var orderSheet = ss.getSheetByName('Orders');
-      repairDuplicateOrderIds(orderSheet);
-      if (postData.date !== undefined && postData.date !== null && String(postData.date).trim() !== '') postData.date = String(postData.date).trim();
+                            <div class="p-6 space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                                        <p class="text-xs text-blue-600 font-semibold">DATABASE</p>
+                                        <p class="text-lg font-bold text-blue-900 mt-1">Supabase</p>
+                                        <p class="text-xs text-blue-700 mt-1">Project: ${escapeHtml(SUPABASE_PROJECT_REF)}</p>
+                                    </div>
+                                    <div class="bg-green-50 border border-green-100 rounded-lg p-4">
+                                        <p class="text-xs text-green-600 font-semibold">AUTHENTICATION</p>
+                                        <p class="text-lg font-bold text-green-900 mt-1">Supabase Auth</p>
+                                        <p class="text-xs text-green-700 mt-1">Login memakai email dan password.</p>
+                                    </div>
+                                </div>
 
-      // V12 FIX: clientRequestId hanya digunakan sebagai idempotency key untuk
-      // transaksi BARU. Untuk EDIT existing order, jangan pernah short-circuit hanya
-      // karena clientRequestId sama. Versi sebelumnya mengembalikan "success" tanpa
-      // menulis perubahan status ke Sheets, sehingga browser tampil berubah sementara
-      // lalu kembali ke nilai lama ketika sync berikutnya membaca server.
-      var existingById = postData.id ? getOrderById(orderSheet, String(postData.id).trim().toUpperCase()) : null;
-      var existingByRequest = findOrderByClientRequestId(orderSheet, postData.clientRequestId);
-      var isExplicitNewOrder = postData.isNewOrder === true;
+                                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                    <p class="text-xs font-semibold text-gray-500 mb-1">PROJECT URL</p>
+                                    <code class="text-xs text-gray-700 break-all">${escapeHtml(SUPABASE_URL)}</code>
+                                </div>
 
-      if (isExplicitNewOrder) {
-        if (existingByRequest) {
-          var existingNew = getOrderById(orderSheet, existingByRequest.id) || existingByRequest;
-          result = { status:'success', id:existingNew.id, date:existingNew.date || '', customerId:existingNew.customerId || '', order:existingNew, idempotent:true };
-        } else {
-          // Order BARU selalu mendapat ID dari server. ID sementara browser tidak pernah
-          // dipakai sebagai ID permanen, sehingga tidak ada collision antar perangkat.
-          postData.id = reserveNextOrderId(orderSheet);
-          if (postData.isNewCustomer === true || !postData.customerId) {
-            postData.customerId = reserveNextCustomerId(orderSheet);
-          }
-          postData.customerId = String(postData.customerId).trim().toUpperCase();
-          validateCustomerIdConsistency(orderSheet, postData);
-          upsertRowDynamic(orderSheet,'id',postData.id,postData);
-          SpreadsheetApp.flush();
-          var savedNew = getOrderById(orderSheet, postData.id) || postData;
-          result = { status:'success', id:postData.id, date:postData.date || '', customerId:postData.customerId, order:savedNew, idempotent:false };
-        }
-      } else {
-        // EDIT EXISTING: cari berdasarkan ID dan tulis perubahan ke baris yang sama.
-        // clientRequestId lama boleh tetap dikirim dari browser, tetapi tidak boleh
-        // menghalangi update status/tanggal/resi/pembayaran.
-        if (!existingById) {
-          throw new Error('ID transaksi tidak ditemukan di Google Sheets: ' + (postData.id || '-'));
-        }
-        postData.id = String(existingById.id).trim().toUpperCase();
-        if (postData.customerId) {
-          postData.customerId = String(postData.customerId).trim().toUpperCase();
-          validateCustomerIdConsistency(orderSheet, postData);
-        } else if (existingById.customerId) {
-          postData.customerId = String(existingById.customerId).trim().toUpperCase();
-        }
-        // Jangan menghapus field lama yang tidak dikirim oleh client.
-        upsertRowDynamic(orderSheet,'id',postData.id,postData);
-        SpreadsheetApp.flush();
-        var savedEdit = getOrderById(orderSheet, postData.id);
-        if (!savedEdit) throw new Error('Perubahan tidak dapat diverifikasi setelah penyimpanan.');
-        result = { status:'success', id:postData.id, date:savedEdit.date || '', customerId:savedEdit.customerId || '', order:savedEdit, updated:true };
-      }
-    } else if (action === 'updateShippingCost') {
-      if (!postData || !postData.id) throw new Error('ID transaksi tidak ditemukan.');
-      ensureOrdersSchema(ss); ensureSettingsSchema(ss);
-      repairDuplicateOrderIds(ss.getSheetByName('Orders'));
-      var shippingSheet = ss.getSheetByName('Orders');
-      var existingShippingOrder = getOrderById(shippingSheet, String(postData.id).trim().toUpperCase());
-      if (!existingShippingOrder) throw new Error('ID transaksi tidak ditemukan di Google Sheets: ' + postData.id);
-      var newShipping = Math.max(0, Number(postData.shippingCost || 0));
-      var shippingQty = Math.max(0, Number(existingShippingOrder.qty || 0));
-      var shippingUnitPrice = Math.max(0, Number(existingShippingOrder.unitPrice || 0));
-      var shippingSubtotal = (shippingQty * shippingUnitPrice) + newShipping;
-      var shippingDiscountPercent = Math.max(0, Number(existingShippingOrder.discountPercent || postData.discountPercent || 0));
-      var shippingDiscountAmount = Math.min(shippingSubtotal, shippingSubtotal * shippingDiscountPercent / 100);
-      if (shippingDiscountPercent === 0 && Number(existingShippingOrder.discountAmount || 0) > 0) shippingDiscountAmount = Math.min(shippingSubtotal, Number(existingShippingOrder.discountAmount || 0));
-      var shippingPointsUsed = Math.max(0, parseInt(existingShippingOrder.pointsUsed || postData.pointsUsed || 0, 10) || 0);
-      var settingsForShipping = getSettings(ss);
-      var shippingPointsDiscount = Math.min(Math.max(0, shippingSubtotal - shippingDiscountAmount), shippingPointsUsed * Number(settingsForShipping.pointValue || 0));
-      var shippingTotal = Math.max(0, shippingSubtotal - shippingDiscountAmount - shippingPointsDiscount);
-      var shippingPointsEarned = Math.floor(shippingTotal / Math.max(1, Number(settingsForShipping.rupiahPerPoint || 10000)));
-      var paymentStatus = String(existingShippingOrder.paymentStatus || postData.paymentStatus || '');
-      var updatedDp = Number(existingShippingOrder.dpAmount || postData.dpAmount || 0);
-      if (paymentStatus === 'Lunas') updatedDp = shippingTotal;
-      else if (paymentStatus === 'DP') updatedDp = Math.min(updatedDp, shippingTotal);
-      var shippingPayload = {
-        id: existingShippingOrder.id,
-        shippingCost: newShipping,
-        subtotal: shippingSubtotal,
-        discountPercent: shippingDiscountPercent,
-        discountAmount: shippingDiscountAmount,
-        pointsUsed: shippingPointsUsed,
-        pointsDiscount: shippingPointsDiscount,
-        pointsEarned: shippingPointsEarned,
-        totalPrice: shippingTotal,
-        dpAmount: updatedDp,
-        customerId: existingShippingOrder.customerId || '',
-        isNewOrder:false,
-        isNewCustomer:false
-      };
-      upsertRowDynamic(shippingSheet,'id',existingShippingOrder.id,shippingPayload);
-      SpreadsheetApp.flush();
-      var savedShippingOrder = getOrderById(shippingSheet, existingShippingOrder.id) || shippingPayload;
-      result = { status:'success', order:savedShippingOrder, shippingCost:newShipping, totalPrice:shippingTotal, message:'Ongkir dan total harga berhasil diperbarui.' };
-    } else if (action === 'importOrders') {
-      ensureOrdersSchema(ss);
-      var incoming = postData && Array.isArray(postData.orders) ? postData.orders : [];
-      var importResult = importOrdersMerge(ss.getSheetByName('Orders'), incoming);
-      result = importResult;
-    } else if (action === 'repairDuplicateOrderIds') {
-      ensureOrdersSchema(ss);
-      var repairResult = repairDuplicateOrderIds(ss.getSheetByName('Orders'));
-      result = { status:'success', repairedCount:repairResult.repairedCount, duplicatesFound:repairResult.duplicatesFound, mappings:repairResult.mappings, message:repairResult.repairedCount ? 'ID transaksi duplikat berhasil diperbaiki.' : 'Tidak ada ID transaksi duplikat.' };
-    } else if (action === 'deleteOrder') {
-      deleteRowById(ss,'Orders',postData.id); result = {status:'success'};
-    } else if (action === 'uploadBookImage') {
-      ensureBooksSchema(ss);
-      var img = postData || {};
-      if (!img.id || !img.imageData) throw new Error('ID buku atau data gambar tidak ditemukan.');
-      var driveResult = saveBookCoverToDrive_(img.id, img.fileName, img.mimeType, img.imageData, img.oldDriveId);
-      result = { status:'success', imageUrl:driveResult.imageUrl, imageDriveId:driveResult.imageDriveId, publicAccess:driveResult.publicAccess, message:'Cover buku berhasil diunggah.' };
-    } else if (action === 'deleteBookImage') {
-      var driveId = String((postData || {}).driveId || '').trim();
-      if (driveId) trashDriveFile_(driveId);
-      result = { status:'success', message:'Cover buku berhasil dihapus.' };
-    } else if (action === 'saveBook') {
-      ensureBooksSchema(ss);
-      upsertRowDynamic(ss.getSheetByName('Books'),'id',postData.id,postData);
-      SpreadsheetApp.flush();
-      result = {status:'success', book:getRowObjectById(ss.getSheetByName('Books'), postData.id)};
-    } else if (action === 'deleteBooksBatch') {
-      ensureBooksSchema(ss);
-      var batchIds = (postData && Array.isArray(postData.ids)) ? postData.ids : [];
-      var bookSheetBatch = ss.getSheetByName('Books');
-      batchIds.forEach(function(bookId){ var bookRow = getRowObjectById(bookSheetBatch, bookId); if (bookRow && bookRow.imageDriveId) trashDriveFile_(bookRow.imageDriveId); });
-      batchIds.forEach(function(bookId){ deleteRowById(ss,'Books',bookId); });
-      SpreadsheetApp.flush();
-      result = {status:'success', deleted:batchIds.length};
-    } else if (action === 'deleteBook') {
-      ensureBooksSchema(ss);
-      var deleteBook = getRowObjectById(ss.getSheetByName('Books'), postData.id);
-      if (deleteBook && deleteBook.imageDriveId) trashDriveFile_(deleteBook.imageDriveId);
-      deleteRowById(ss,'Books',postData.id); result = {status:'success'};
-    } else if (action === 'saveUser') {
-      upsertRowDynamic(ss.getSheetByName('Users'),'id',postData.id,postData); result = {status:'success'};
-    } else if (action === 'deleteUser') {
-      deleteRowById(ss,'Users',postData.id); result = {status:'success'};
-    } else {
-      result = { status:'error', message:'Action tidak dikenal' };
-    }
-    return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
-  } catch(err) {
-    return ContentService.createTextOutput(JSON.stringify({status:'error',message:err.toString()})).setMimeType(ContentService.MimeType.JSON);
-  } finally { lock.releaseLock(); }
-}
+                                <div id="diagnostic-result" class="hidden"></div>
+                            </div>
 
-function importOrdersMerge(sheet, incoming) {
-  var updated = 0, added = 0, skipped = 0, errors = [], savedOrders = [];
-  if (!sheet) throw new Error('Sheet Orders tidak ditemukan.');
-  incoming.forEach(function(item, idx) {
-    try {
-      if (!item || typeof item !== 'object') { skipped++; return; }
-      var order = {};
-      Object.keys(item).forEach(function(k){
-        if (item[k] !== undefined && item[k] !== null && String(item[k]).trim() !== '') order[k] = item[k];
-      });
-      var requestId = String(order.clientRequestId || '').trim();
-      var existingByRequest = requestId ? findOrderByClientRequestId(sheet, requestId) : null;
-      if (existingByRequest) {
-        order.id = existingByRequest.id;
-      }
-      var rawId = String(order.id || '').trim();
-      if (!rawId || /^ORD-PENDING-/i.test(rawId)) {
-        order.id = reserveNextOrderId(sheet);
-        order.isNewOrder = false;
-      }
-      order.id = String(order.id).trim().toUpperCase();
-      if (!order.date) order.date = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd');
-      if (!order.customerId) order.customerId = reserveNextCustomerId(sheet);
-      order.customerId = String(order.customerId).trim().toUpperCase();
-      if (!order.clientRequestId) order.clientRequestId = 'IMPORT-' + new Date().getTime() + '-' + idx + '-' + Math.random().toString(36).slice(2,8);
-      validateCustomerIdConsistency(sheet, order);
-      var existed = orderIdExists(sheet, order.id);
-      upsertRowDynamic(sheet, 'id', order.id, order);
-      SpreadsheetApp.flush();
-      var saved = getOrderById(sheet, order.id);
-      savedOrders.push(saved || order);
-      if (existed) updated++; else added++;
-    } catch (err) {
-      skipped++;
-      errors.push('Baris ' + (idx + 2) + ': ' + err.toString());
-    }
-  });
-  return { status:'success', updated:updated, added:added, skipped:skipped, errors:errors, orders:savedOrders };
-}
-
-function getOrderById(sheet, id) {
-  var data = sheet.getDataRange().getValues();
-  if (data.length <= 1) return null;
-  var headers = data[0].map(function(h){return String(h).trim();});
-  var idx = headers.indexOf('id');
-  if (idx === -1) return null;
-  for (var r=1;r<data.length;r++) {
-    if (String(data[r][idx]) === String(id)) {
-      var obj={};
-      headers.forEach(function(h,c){
-        var v=data[r][c];
-        if(v instanceof Date) v=Utilities.formatDate(v, SpreadsheetApp.getActive().getSpreadsheetTimeZone(), 'yyyy-MM-dd');
-        obj[h]=v;
-      });
-      return obj;
-    }
-  }
-  return null;
-}
-
-function findOrderByClientRequestId(sheet, requestId) {
-  requestId = String(requestId || '').trim();
-  if (!requestId || sheet.getLastRow() <= 1) return null;
-  var lastCol = sheet.getLastColumn();
-  var headers = sheet.getRange(1,1,1,lastCol).getValues()[0].map(function(h){return String(h).trim();});
-  var reqIdx = headers.indexOf('clientRequestId');
-  var idIdx = headers.indexOf('id');
-  var dateIdx = headers.indexOf('date');
-  var custIdx = headers.indexOf('customerId');
-  if (reqIdx === -1 || idIdx === -1) return null;
-  var rows = sheet.getRange(2,1,sheet.getLastRow()-1,lastCol).getValues();
-  for (var i=0;i<rows.length;i++) {
-    if (String(rows[i][reqIdx] || '').trim() === requestId) {
-      return { id:String(rows[i][idIdx] || ''), date:dateIdx === -1 ? '' : rows[i][dateIdx], customerId:custIdx === -1 ? '' : String(rows[i][custIdx] || '') };
-    }
-  }
-  return null;
-}
-
-function repairDuplicateOrderIds(sheet) {
-  var result = { repairedCount:0, duplicatesFound:0, mappings:[] };
-  if (!sheet || sheet.getLastRow() <= 1 || sheet.getLastColumn() === 0) return result;
-  var data = sheet.getDataRange().getValues();
-  var headers = data[0].map(function(h){ return String(h).trim(); });
-  var idIdx = headers.indexOf('id');
-  if (idIdx === -1) return result;
-  var max = 0;
-  for (var r=1; r<data.length; r++) {
-    var raw = String(data[r][idIdx] || '').trim().toUpperCase();
-    var m = raw.match(/^ORD-(\d+)$/i);
-    if (m) max = Math.max(max, parseInt(m[1],10) || 0);
-  }
-  var seen = {};
-  for (var i=1; i<data.length; i++) {
-    var original = String(data[i][idIdx] || '').trim();
-    var normalized = original.toUpperCase();
-    var valid = /^ORD-(\d+)$/.test(normalized);
-    var needsRepair = !valid || !!seen[normalized];
-    if (seen[normalized] && valid) result.duplicatesFound++;
-    if (needsRepair) {
-      do { max++; normalized = 'ORD-' + String(max).padStart(3,'0'); } while (seen[normalized]);
-      sheet.getRange(i+1, idIdx+1).setValue(normalized);
-      result.repairedCount++;
-      result.mappings.push({ row:i+1, oldId:original, newId:normalized });
-    } else if (original !== normalized) {
-      sheet.getRange(i+1, idIdx+1).setValue(normalized);
-    }
-    seen[normalized] = true;
-  }
-  if (result.repairedCount > 0) SpreadsheetApp.flush();
-  return result;
-}
-
-function reserveNextOrderId(sheet) {
-  var lastRow = sheet.getLastRow(), lastCol = sheet.getLastColumn();
-  var headers = lastCol ? sheet.getRange(1,1,1,lastCol).getValues()[0].map(function(h){return String(h).trim();}) : [];
-  var idx = headers.indexOf('id'), max = 0;
-  if (idx !== -1 && lastRow > 1) {
-    sheet.getRange(2,idx+1,lastRow-1,1).getValues().forEach(function(row){
-      var m = String(row[0] || '').trim().match(/^ORD-(\d+)$/i);
-      if (m) max = Math.max(max, parseInt(m[1],10) || 0);
-    });
-  }
-  var candidate;
-  do { max++; candidate = 'ORD-' + String(max).padStart(3,'0'); } while (orderIdExists(sheet,candidate));
-  return candidate;
-}
-
-function orderIdExists(sheet, id) {
-  var lastRow=sheet.getLastRow(), lastCol=sheet.getLastColumn();
-  if(lastRow<=1 || lastCol===0) return false;
-  var headers=sheet.getRange(1,1,1,lastCol).getValues()[0].map(function(h){return String(h).trim();});
-  var idx=headers.indexOf('id'); if(idx===-1) return false;
-  var vals=sheet.getRange(2,idx+1,lastRow-1,1).getValues();
-  for(var i=0;i<vals.length;i++) if(String(vals[i][0] || '')===String(id)) return true;
-  return false;
-}
-
-function reserveNextCustomerId(sheet) {
-  var lastRow = sheet.getLastRow();
-  var lastCol = sheet.getLastColumn();
-  var headers = lastCol ? sheet.getRange(1,1,1,lastCol).getValues()[0].map(function(h){return String(h).trim();}) : [];
-  var idx = headers.indexOf('customerId');
-  var max = 0;
-  if (idx !== -1 && lastRow > 1) {
-    var values = sheet.getRange(2, idx + 1, lastRow - 1, 1).getValues();
-    values.forEach(function(row) {
-      var id = String(row[0] || '').trim().toUpperCase();
-      var match = id.match(/^CUST-(\d+)$/);
-      if (match) max = Math.max(max, parseInt(match[1], 10) || 0);
-    });
-  }
-  return 'CUST-' + String(max + 1).padStart(6, '0');
-}
-
-function validateCustomerIdConsistency(sheet, order) {
-  var lastRow = sheet.getLastRow();
-  var lastCol = sheet.getLastColumn();
-  if (lastRow <= 1 || lastCol === 0) return;
-  var headers = sheet.getRange(1,1,1,lastCol).getValues()[0].map(function(h){return String(h).trim();});
-  var idIdx = headers.indexOf('customerId');
-  var nameIdx = headers.indexOf('customerName');
-  var phoneIdx = headers.indexOf('customerPhone');
-  var orderIdIdx = headers.indexOf('id');
-  if (idIdx === -1) return;
-  var rows = sheet.getRange(2,1,lastRow-1,lastCol).getValues();
-  for (var i=0;i<rows.length;i++) {
-    var rowId = String(rows[i][orderIdIdx] || '');
-    var custId = String(rows[i][idIdx] || '').trim().toUpperCase();
-    if (!custId || custId !== String(order.customerId).trim().toUpperCase() || rowId === String(order.id)) continue;
-    var oldName = nameIdx === -1 ? '' : String(rows[i][nameIdx] || '').trim().toLowerCase();
-    var oldPhone = phoneIdx === -1 ? '' : String(rows[i][phoneIdx] || '').replace(/\D/g,'');
-    var newName = String(order.customerName || '').trim().toLowerCase();
-    var newPhone = String(order.customerPhone || '').replace(/\D/g,'');
-    if ((oldPhone && newPhone && oldPhone !== newPhone) || (oldName && newName && oldName !== newName && !oldPhone && !newPhone)) {
-      throw new Error('Customer ID ' + order.customerId + ' sudah dimiliki customer lain. Sistem menolak ID ganda.');
-    }
-  }
-}
-
-function ensureOrdersSchema(ss) {
-  var sheet = ss.getSheetByName('Orders');
-  var requiredHeaders = ['id','date','clientRequestId','customerId','customerName','customerPhone','customerEmail','customerAddress','bookId','qty','unitPrice','shippingCost','subtotal','discountPercent','discountAmount','pointsUsed','pointsDiscount','pointsEarned','totalPrice','status','paymentStatus','dpAmount','shippingVendor','trackingNumber'];
-  if (!sheet) { sheet=ss.insertSheet('Orders'); sheet.appendRow(requiredHeaders); return; }
-  var data=sheet.getDataRange().getValues();
-  if (data.length===0 || data[0].length===0) { sheet.clear(); sheet.appendRow(requiredHeaders); return; }
-  var headers=data[0].map(function(h){return String(h).trim();});
-  var dateIndex=headers.indexOf('date');
-  var aliasIndex=-1;
-  ['tanggalPemesanan','Tanggal Pemesanan','tanggal_pemesanan'].some(function(alias){aliasIndex=headers.indexOf(alias);return aliasIndex!==-1;});
-  if (dateIndex===-1) {
-    var idIndex=headers.indexOf('id'); var newCol;
-    if(idIndex!==-1){sheet.insertColumnAfter(idIndex+1);newCol=idIndex+2;}else{newCol=sheet.getLastColumn()+1;}
-    sheet.getRange(1,newCol).setValue('date'); dateIndex=newCol-1;
-    if(aliasIndex!==-1 && data.length>1){var values=data.slice(1).map(function(row){return [row[aliasIndex]||''];});if(values.length)sheet.getRange(2,newCol,values.length,1).setValues(values);}
-  }
-  headers=sheet.getRange(1,1,1,sheet.getLastColumn()).getValues()[0].map(function(h){return String(h).trim();});
-  requiredHeaders.forEach(function(header){if(headers.indexOf(header)===-1){sheet.getRange(1,sheet.getLastColumn()+1).setValue(header);headers.push(header);}});
-  var finalDateIndex=headers.indexOf('date');
-  if(finalDateIndex!==-1 && sheet.getLastRow()>1) sheet.getRange(2,finalDateIndex+1,sheet.getLastRow()-1,1).setNumberFormat('yyyy-mm-dd');
-}
-
-function ensureBooksSchema(ss) {
-  var sheet = ss.getSheetByName('Books');
-  var requiredHeaders = ['id','title','author','pages','category','costPrice','defaultPrice','margin','stock','imageUrl','imageDriveId'];
-  if (!sheet) { sheet=ss.insertSheet('Books'); sheet.appendRow(requiredHeaders); return; }
-  var data=sheet.getDataRange().getValues();
-  if(data.length===0 || data[0].length===0){ sheet.clear(); sheet.appendRow(requiredHeaders); return; }
-  var headers=data[0].map(function(h){return String(h).trim();});
-  requiredHeaders.forEach(function(header){ if(headers.indexOf(header)===-1){ sheet.getRange(1,sheet.getLastColumn()+1).setValue(header); headers.push(header); } });
-}
-function getRowObjectById(sheet, id) {
-  if (!sheet || sheet.getLastRow() <= 1) return null;
-  var data=sheet.getDataRange().getValues();
-  var headers=data[0].map(function(h){return String(h).trim();});
-  var idx=headers.indexOf('id'); if(idx===-1) return null;
-  var target=String(id||'').trim();
-  for(var r=1;r<data.length;r++){
-    if(String(data[r][idx]||'').trim()===target){
-      var out={}; headers.forEach(function(h,c){ var v=data[r][c]; if(v instanceof Date) v=Utilities.formatDate(v, sheet.getParent().getSpreadsheetTimeZone(),'yyyy-MM-dd'); out[h]=v; }); return out;
-    }
-  }
-  return null;
-}
-function getOrCreateBookImageFolder_() {
-  var props=PropertiesService.getScriptProperties();
-  var folderId=props.getProperty('YKBUT_BOOK_IMAGE_FOLDER_ID');
-  if(folderId){ try { return DriveApp.getFolderById(folderId); } catch(e) {} }
-  var it=DriveApp.getFoldersByName('YKBUT Press Book Images');
-  var folder=it.hasNext()?it.next():DriveApp.createFolder('YKBUT Press Book Images');
-  props.setProperty('YKBUT_BOOK_IMAGE_FOLDER_ID', folder.getId());
-  return folder;
-}
-function saveBookCoverToDrive_(bookId, fileName, mimeType, dataUrl, oldDriveId) {
-  var match=String(dataUrl||'').match(/^data:[^;]+;base64,(.*)$/);
-  if(!match) throw new Error('Format data gambar tidak valid.');
-  var bytes=Utilities.base64Decode(match[1]);
-  var folder=getOrCreateBookImageFolder_();
-  var safeName=String(fileName||('BOOK_'+bookId+'_'+Date.now()+'.jpg')).replace(/[^A-Za-z0-9._-]/g,'_');
-  var blob=Utilities.newBlob(bytes, mimeType || 'image/jpeg', safeName);
-  var file=folder.createFile(blob);
-  var publicAccess=true;
-  try { file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW); } catch(e) { publicAccess=false; }
-  if(oldDriveId && String(oldDriveId)!==String(file.getId())) trashDriveFile_(oldDriveId);
-  return { imageDriveId:file.getId(), imageUrl:'https://drive.google.com/thumbnail?id='+encodeURIComponent(file.getId())+'&sz=w900', publicAccess:publicAccess };
-}
-function trashDriveFile_(fileId){ try { DriveApp.getFileById(String(fileId)).setTrashed(true); } catch(e) {} }
-
-function ensureSettingsSchema(ss){
-  var sheet=ss.getSheetByName('Settings');
-  if(!sheet){sheet=ss.insertSheet('Settings');sheet.appendRow(['key','value']);}
-  var defaults={defaultDiscountPercent:'0',maxDiscountPercent:'20',rupiahPerPoint:'10000',pointValue:'100',pointsRedemptionEnabled:'true'};
-  var data=sheet.getDataRange().getValues();
-  var existing={};
-  for(var i=1;i<data.length;i++){if(data[i][0]!=='' ) existing[String(data[i][0])]=i+1;}
-  Object.keys(defaults).forEach(function(key){if(!existing[key])sheet.appendRow([key,defaults[key]]);});
-}
-function getSettings(ss){
-  ensureSettingsSchema(ss); var sheet=ss.getSheetByName('Settings'); var data=sheet.getDataRange().getValues(); var out={};
-  for(var i=1;i<data.length;i++){if(data[i][0]!=='' ) out[String(data[i][0])]=data[i][1];}
-  return {defaultDiscountPercent:Number(out.defaultDiscountPercent||0),maxDiscountPercent:Number(out.maxDiscountPercent||20),rupiahPerPoint:Number(out.rupiahPerPoint||10000),pointValue:Number(out.pointValue||100),pointsRedemptionEnabled:String(out.pointsRedemptionEnabled)!=='false'};
-}
-function saveSettings(ss,obj){
-  ensureSettingsSchema(ss); var sheet=ss.getSheetByName('Settings'); var data=sheet.getDataRange().getValues(); var rows={};
-  for(var i=1;i<data.length;i++) rows[String(data[i][0])]=i+1;
-  var values={defaultDiscountPercent:String(obj.defaultDiscountPercent||0),maxDiscountPercent:String(obj.maxDiscountPercent||0),rupiahPerPoint:String(obj.rupiahPerPoint||10000),pointValue:String(obj.pointValue||100),pointsRedemptionEnabled:String(obj.pointsRedemptionEnabled!==false)};
-  Object.keys(values).forEach(function(k){if(rows[k])sheet.getRange(rows[k],2).setValue(values[k]);else sheet.appendRow([k,values[k]]);});
-}
-function canonicalizeOrderForFingerprint_(order){
-  var out={};
-  Object.keys(order || {}).sort().forEach(function(key){
-    if (key === 'isNewOrder' || key === 'isNewCustomer' || key === 'pendingDisplayNo' || key === 'localChangedAt') return;
-    var value = order[key];
-    if (value === null || value === undefined) value = '';
-    out[key] = String(value);
-  });
-  return out;
-}
-function computeOrdersFingerprint(orders){
-  var canonical = (orders || []).map(function(order){ return canonicalizeOrderForFingerprint_(order); });
-  canonical.sort(function(a,b){ return String(a.id || '').localeCompare(String(b.id || '')); });
-  var payload = canonical.map(function(item){ return JSON.stringify(item); }).join('\u001e');
-  var hash = 2166136261 >>> 0;
-  for (var i=0;i<payload.length;i++) {
-    hash ^= payload.charCodeAt(i);
-    hash = (hash * 16777619) >>> 0;
-  }
-  return ('00000000' + hash.toString(16)).slice(-8);
-}
-function getSheetData(ss,sheetName){
-  var sheet=ss.getSheetByName(sheetName); if(!sheet)return []; var data=sheet.getDataRange().getValues(); if(data.length<=1)return [];
-  var headers=data[0]; var rows=[];
-  for(var i=1;i<data.length;i++){var rowObj={};for(var j=0;j<headers.length;j++){var val=data[i][j];if(val instanceof Date)val=Utilities.formatDate(val,ss.getSpreadsheetTimeZone(),'yyyy-MM-dd');rowObj[String(headers[j]).trim()]=val;}rows.push(rowObj);} return rows;
-}
-function upsertRowDynamic(sheet,keyColumnName,keyValue,rowValuesObj){
-  var data=sheet.getDataRange().getValues();
-  if(data.length===0||data[0].length===0){var newHeaders=Object.keys(rowValuesObj);sheet.appendRow(newHeaders);sheet.appendRow(newHeaders.map(function(h){return rowValuesObj[h]!==undefined?rowValuesObj[h]:'';}));return;}
-  var headers=data[0].map(function(h){return String(h).trim();});
-  var keyIndex=headers.indexOf(keyColumnName);
-  var existingIndex=-1;
-  if(keyIndex!==-1&&data.length>1){for(var r=1;r<data.length;r++){if(String(data[r][keyIndex])===String(keyValue)){existingIndex=r;break;}}}
-  var existingRow=existingIndex>=0?data[existingIndex]:null;
-  var rowArray=headers.map(function(header,idx){
-    if(rowValuesObj[header]!==undefined) return rowValuesObj[header];
-    return existingRow ? existingRow[idx] : '';
-  });
-  if(existingIndex>=0){sheet.getRange(existingIndex+1,1,1,rowArray.length).setValues([rowArray]);return;}
-  sheet.appendRow(rowArray);
-}
-
-function deleteRowById(ss,sheetName,id){var sheet=ss.getSheetByName(sheetName);if(sheet){var data=sheet.getDataRange().getValues();if(data.length<2)return;var headers=data[0];var keyIndex=headers.indexOf('id');if(keyIndex===-1)return;for(var i=data.length-1;i>=1;i--){if(String(data[i][keyIndex])===String(id))sheet.deleteRow(i+1);}}}
-
-`;
+                            <div class="p-4 border-t bg-gray-50 flex justify-end gap-2">
+                                <button type="button" onclick="app.closeModal()" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-white">
+                                    Tutup
+                                </button>
+                                <button type="button" onclick="app.runSheetDiagnostic()" class="px-5 py-2 bg-corp-primary text-white rounded-lg font-semibold hover:bg-blue-800 shadow">
+                                    <i class="ph ph-plugs mr-1.5"></i> Cek Koneksi
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
                 document.getElementById('modal-root').innerHTML = modalHtml;
             },
 
             async runSheetDiagnostic() {
                 const resultDiv = document.getElementById('diagnostic-result');
                 if (!resultDiv) return;
+
                 resultDiv.classList.remove('hidden');
                 resultDiv.className = 'mt-3 p-3 rounded-lg text-xs font-mono bg-blue-50 text-blue-700 border border-blue-200';
-                resultDiv.innerHTML = '<i class="ph ph-spinner animate-spin mr-1"></i> Menjalankan diagnosa deployment...';
+                resultDiv.innerHTML = '<i class="ph ph-spinner animate-spin mr-1"></i> Mengecek koneksi Supabase...';
+
                 const data = await apiService.diagnose();
+
                 if (data && data.status === 'success') {
-                    const correct = data.spreadsheetId === SPREADSHEET_CONFIG.TARGET_SHEET_ID && data.ordersSheet && data.hasDateColumn;
-                    const legacySyncReady = !data.serverVersion && Number.isFinite(Number(data.ordersCount));
-                    const compatibleServer = SUPPORTED_SERVER_VERSIONS.has(String(data.serverVersion || '').trim());
-                    const syncReady = compatibleServer || legacySyncReady;
-                    const serverLabel = data.serverVersion || 'Legacy';
-                    const engineLabel = compatibleServer ? (serverLabel + ' fingerprint + unique ID + backward-compatible edit persistence') : (legacySyncReady ? 'Legacy metadata aman' : 'DEPLOYMENT LAMA/TIDAK LENGKAP');
-                    resultDiv.className = (correct && syncReady) ? 'mt-3 p-3 rounded-lg text-xs font-mono bg-green-50 text-green-700 border border-green-200' : 'mt-3 p-3 rounded-lg text-xs font-mono bg-amber-50 text-amber-700 border border-amber-200';
-                    resultDiv.innerHTML = 'Deployment: <strong>' + ((correct && syncReady) ? 'VALID & SYNC READY' : 'PERLU DIPERBAIKI') + '</strong><br>Web App URL dipakai: ' + escapeHtml(getWebAppUrl()) + '<br>Server Version: ' + escapeHtml(serverLabel) + '<br>Spreadsheet ID: ' + (data.spreadsheetId || '-') + '<br>Orders: ' + (data.ordersSheet ? 'ada' : 'tidak ada') + ' (' + (Number.isFinite(Number(data.ordersCount)) ? Number(data.ordersCount) : '?') + ' transaksi)<br>Kolom date: ' + (data.hasDateColumn ? 'ada' : 'TIDAK ADA') + '<br>Server Snapshot Engine: ' + escapeHtml(engineLabel) + '<br>Header: ' + (data.headers || []).join(', ');
+                    resultDiv.className = 'mt-3 p-3 rounded-lg text-xs font-mono bg-green-50 text-green-700 border border-green-200';
+                    resultDiv.innerHTML =
+                        '<i class="ph ph-check-circle mr-1"></i> Koneksi Supabase aktif.' +
+                        '<br>Project: ' + escapeHtml(data.projectRef || SUPABASE_PROJECT_REF) +
+                        '<br>Orders: ' + Number(data.ordersCount || 0) +
+                        '<br>Books: ' + Number(data.booksCount || 0) +
+                        '<br>Users: ' + Number(data.usersCount || 0);
+                    showToast('Koneksi Supabase + tabel utama berhasil divalidasi.', 'success');
                 } else {
                     resultDiv.className = 'mt-3 p-3 rounded-lg text-xs font-mono bg-red-50 text-red-700 border border-red-200';
-                    resultDiv.innerHTML = '<i class="ph ph-x-circle mr-1"></i> ' + String(data?.message || 'Deployment tidak dapat diakses').replace(/</g,'&lt;');
+                    resultDiv.innerHTML =
+                        '<i class="ph ph-x-circle mr-1"></i> ' +
+                        escapeHtml(data?.message || 'Supabase tidak dapat diakses.');
+                    showToast('Koneksi Supabase gagal.', 'error');
                 }
             },
 
             saveWebAppUrl() {
-                const rawUrl = document.getElementById('input-webapp-url').value.trim();
-                const url = rawUrl.replace(/[\s]+$/g, '');
-                if (url && !isValidWebAppUrl(url)) {
-                    const resultDiv = document.getElementById('diagnostic-result');
-                    resultDiv.classList.remove('hidden');
-                    resultDiv.className = 'mt-3 p-3 rounded-lg text-xs font-mono bg-red-50 text-red-700 border border-red-200';
-                    resultDiv.innerHTML = '<i class="ph ph-x-circle mr-1"></i> Format URL Web App tidak valid. Gunakan URL yang berakhir dengan /exec.';
-                    return;
-                }
-                localStorage.setItem('ykbut_webapp_url', url);
-                
-                const resultDiv = document.getElementById('diagnostic-result');
-                resultDiv.classList.remove('hidden');
-                
-                if (url) {
-                    resultDiv.className = 'mt-3 p-3 rounded-lg text-xs font-mono bg-blue-50 text-blue-700 border border-blue-200';
-                    resultDiv.innerHTML = '<i class="ph ph-spinner animate-spin mr-1"></i> Menguji koneksi dengan server Apps Script...';
-                    
-                    fetch(url + (url.includes('?') ? '&' : '?') + 'action=diagnose&_t=' + Date.now())
-                        .then(res => res.json())
-                        .then(data => {
-                            if(data.status !== 'success') throw new Error(data.message || 'Deployment tidak mengembalikan status success');
-                            if(data.spreadsheetId !== SPREADSHEET_CONFIG.TARGET_SHEET_ID) throw new Error('Web App mengarah ke Spreadsheet ID berbeda: ' + (data.spreadsheetId || '-'));
-                            if(!data.ordersSheet || !data.hasDateColumn) throw new Error('Sheet Orders atau kolom date belum tersedia pada deployment aktif.');
-                            const serverIsCompatible = SUPPORTED_SERVER_VERSIONS.has(String(data.serverVersion || '').trim());
-                            const isLegacyReady = !data.serverVersion && Number.isFinite(Number(data.ordersCount));
-                            const ready = serverIsCompatible || isLegacyReady;
-                            resultDiv.className = 'mt-3 p-3 rounded-lg text-xs font-mono ' + (ready ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-amber-50 text-amber-700 border border-amber-200');
-                            resultDiv.innerHTML = '<i class="ph ph-check-circle mr-1"></i> ' + (serverIsCompatible ? ('Deployment ' + String(data.serverVersion) + ' aktif & kompatibel. V24 akan mempertahankan edit status pada deployment ini.') : (isLegacyReady ? 'Deployment legacy terdeteksi. Sinkronisasi authoritative tetap aman bila metadata lengkap.' : 'Deployment aktif, tetapi metadata snapshot belum lengkap.'));
-                            showToast(serverIsCompatible ? 'Koneksi + schema + snapshot server tervalidasi.' : (isLegacyReady ? 'Koneksi valid dengan deployment legacy.' : 'Deployment perlu diperbarui.'), ready ? 'success' : 'warning');
-                            this.syncFromSpreadsheet();
-                        })
-                        .catch(err => {
-                            resultDiv.className = 'mt-3 p-3 rounded-lg text-xs font-mono bg-red-50 text-red-700 border border-red-200';
-                            resultDiv.innerHTML = '<i class="ph ph-x-circle mr-1"></i> ' + String(err.message || err).replace(/</g,'&lt;');
-                        });
-                } else {
-                    resultDiv.className = 'mt-3 p-3 rounded-lg text-xs font-mono bg-gray-50 text-gray-700 border border-gray-200';
-                    resultDiv.innerHTML = 'URL Google Sheets telah dihapus. Aplikasi berjalan dalam mode lokal offline.';
-                    showToast('Web App URL dihapus. Berjalan secara lokal.', 'info');
-                    this.syncFromSpreadsheet();
-                }
+                // Compatibility shim for older UI calls. Supabase does not need a Web App URL.
+                this.runSheetDiagnostic();
             }
         };
 
