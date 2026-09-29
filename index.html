@@ -11,6 +11,9 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <!-- PDF Report: jsPDF + AutoTable -->
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
@@ -926,8 +929,11 @@
                 <span class="text-sm text-corp-primary font-bold tracking-[0.2em] uppercase block">Press System</span>
                 <p class="text-gray-500 text-sm mt-4">Silakan masuk menggunakan kredensial Anda</p>
             </div>
-            <form id="form-login" onsubmit="app.handleLogin(event)" class="space-y-5">
-                <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Email</label>
+            <div class="relative">
+              <i class="ph ph-envelope absolute left-3 top-2.5 text-gray-400 text-xl"></i>
+              <input type="email" id="login-username" required class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-corp-primary outline-none transition" placeholder="admin@ykbut.com">
+        </div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Username</label>
                     <div class="relative">
                         <i class="ph ph-user absolute left-3 top-2.5 text-gray-400 text-xl"></i>
@@ -1037,11 +1043,74 @@
     <div id="print-area" class="hidden font-sans"></div>
 
     <script>
-        const SPREADSHEET_CONFIG = {
-            TARGET_SHEET_ID: "115m5DYcwSiH6cEOkIBWgdsBG_59a6SPHyWj4V0EZqp8",
-            DEFAULT_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwzG-MzCnvZhzYZdO2sPCFGwu10uDLRQNHSXMaOwJTf79utt70zlZQ-8TO8HHn25b1I/exec"
-        };
+        const SUPABASE_URL = 'https://supabase.com/dashboard/project/vmdhkjlrefetwpqoakek';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtZGhramxyZWZldHdwcW9ha2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2NjEzMTIsImV4cCI6MjEwNjIzNzMxMn0.LkOmOM9WZZeT8J2LGbXhBo7ATnnHyPNde5EO8qOUG5g';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+const apiService = {
+    async fetchAll() {
+        try {
+            // Fetch everything concurrently. RLS policies ensure Viewers can't see the Users table.
+            const [orders, books, settings, users] = await Promise.all([
+                supabase.from('orders').select('*'),
+                supabase.from('books').select('*'),
+                supabase.from('settings').select('*'),
+                currentUser?.role === 'Administrator' ? supabase.from('users').select('*') : Promise.resolve({ data: [] })
+            ]);
+
+            if (orders.error) throw orders.error;
+
+            const settingsObj = {};
+            (settings.data || []).forEach(s => settingsObj[s.key] = s.value);
+
+            return {
+                status: 'success',
+                orders: orders.data || [],
+                books: books.data || [],
+                users: users.data || [],
+                settings: settingsObj
+            };
+        } catch (error) {
+            console.error('Fetch error:', error);
+            return { status: 'error', message: error.message };
+        }
+    },
+
+    async sendAction(action, payload) {
+        try {
+            if (action === 'saveOrder') {
+                const { data, error } = await supabase.from('orders').upsert(payload).select();
+                if (error) throw error;
+                return { status: 'success', order: data[0] };
+            } 
+            if (action === 'deleteOrder') {
+                const { error } = await supabase.from('orders').delete().eq('id', payload.id);
+                if (error) throw error;
+                return { status: 'success' };
+            }
+            if (action === 'saveBook') {
+                const { data, error } = await supabase.from('books').upsert(payload).select();
+                if (error) throw error;
+                return { status: 'success', book: data[0] };
+            }
+            if (action === 'deleteBooksBatch') {
+                const { error } = await supabase.from('books').delete().in('id', payload.ids);
+                if (error) throw error;
+                return { status: 'success' };
+            }
+            if (action === 'saveSettings') {
+                const updates = Object.keys(payload).map(key => ({ key, value: String(payload[key]) }));
+                const { error } = await supabase.from('settings').upsert(updates);
+                if (error) throw error;
+                return { status: 'success' };
+            }
+            return { status: 'error', message: 'Action not supported' };
+        } catch (error) {
+            console.error(`Action ${action} failed:`, error);
+            return { status: 'error', message: error.message };
+        }
+    }
+};
         // V30: Cover buku disesuaikan dengan file GitHub yang saat ini diunggah:
         // B001.jpeg, B002.jpeg, B003.jpeg, dan seterusnya.
         // Folder repository: /cover/ (singular).
@@ -1976,36 +2045,62 @@
             },
 
             handleLogin(e) {
-                e.preventDefault();
-                const userVal = document.getElementById('login-username').value.trim();
-                const passVal = document.getElementById('login-password').value;
-                const errorMsg = document.getElementById('login-error');
+                async init() {
+        this.loadLocalStorage();
+        
+        // Check for existing Supabase session
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+            await this.loadUserProfile(session.user.id);
+        }
+        
+        this.checkAuth();
+        if (currentUser) this.syncFromSpreadsheet();
+    },
 
-                // Input password HTML selalu berupa String. Data dari Google Sheets
-                // bisa berupa Number/String, sehingga keduanya dinormalisasi sebelum dibandingkan.
-                // Username dibuat case-insensitive dan password tetap case-sensitive.
-                const normalizedUsername = userVal.toLowerCase();
-                let foundUser = mockUsers.find(u =>
-                    String(u.username ?? '').trim().toLowerCase() === normalizedUsername &&
-                    String(u.password ?? '') === passVal
-                );
+    async loadUserProfile(userId) {
+        const { data, error } = await supabase.from('users').select('*').eq('id', userId).single();
+        if (!error && data) {
+            currentUser = data;
+        }
+    },
 
-                if (foundUser) {
-                    currentUser = foundUser;
-                    errorMsg.classList.add('hidden');
-                    document.getElementById('form-login').reset();
-                    showToast(`Selamat datang, ${currentUser.name}!`, 'success');
-                    this.checkAuth();
-                } else {
-                    errorMsg.classList.remove('hidden');
-                }
-            },
+    async handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-username').value.trim();
+        const password = document.getElementById('login-password').value;
+        const errorMsg = document.getElementById('login-error');
+        const btnSubmit = document.getElementById('btn-login-submit');
 
-            logout() {
-                currentUser = null;
-                showToast('Anda telah keluar dari sistem.');
-                this.checkAuth();
-            },
+        btnSubmit.innerHTML = '<i class="ph ph-spinner animate-spin mr-2"></i> Verifikasi...';
+        btnSubmit.disabled = true;
+
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+            errorMsg.innerHTML = `<i class="ph ph-warning-circle mr-2 text-lg"></i> ${error.message}`;
+            errorMsg.classList.remove('hidden');
+        } else {
+            await this.loadUserProfile(data.user.id);
+            errorMsg.classList.add('hidden');
+            document.getElementById('form-login').reset();
+            showToast(`Selamat datang, ${currentUser.name}!`, 'success');
+            this.checkAuth();
+            this.syncFromSpreadsheet();
+        }
+
+        btnSubmit.innerHTML = '<span>Masuk ke Sistem</span>';
+        btnSubmit.disabled = false;
+    },
+
+    async logout() {
+        await supabase.auth.signOut();
+        currentUser = null;
+        appData.orders = [];
+        mockBooks = [];
+        showToast('Anda telah keluar dari sistem.');
+        this.checkAuth();
+    },
 
             updateDate() {
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -4595,37 +4690,21 @@
                 showToast(`Cover ${payload.fileName} siap di-upload ke GitHub /cover.`, 'success');
             },
 
-            async readAndCompressBookImage(file, bookId) {
-                const maxWidth = 900;
-                const maxHeight = 1200;
-                const quality = 0.82;
-                const imageData = await new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onerror = () => reject(new Error('Gagal membaca file gambar.'));
-                    reader.onload = () => {
-                        const img = new Image();
-                        img.onload = () => {
-                            const ratio = Math.min(1, maxWidth / img.width, maxHeight / img.height);
-                            const canvas = document.createElement('canvas');
-                            canvas.width = Math.max(1, Math.round(img.width * ratio));
-                            canvas.height = Math.max(1, Math.round(img.height * ratio));
-                            const ctx = canvas.getContext('2d');
-                            ctx.fillStyle = '#ffffff';
-                            ctx.fillRect(0, 0, canvas.width, canvas.height);
-                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                            resolve(canvas.toDataURL('image/jpeg', quality));
-                        };
-                        img.onerror = () => reject(new Error('Format gambar tidak dapat diproses.'));
-                        img.src = reader.result;
-                    };
-                    reader.readAsDataURL(file);
-                });
-                return {
-                    imageData,
-                    mimeType: 'image/jpeg',
-                    fileName: `BOOK_${String(bookId || 'BOOK').replace(/[^A-Za-z0-9_-]/g,'_')}_${Date.now()}.jpg`
-                };
-            },
+           async uploadBookCoverToSupabase(file, bookId) {
+        const fileName = `${bookId}_${Date.now()}.jpg`;
+        
+        const { data, error } = await supabase.storage
+            .from('book_covers')
+            .upload(fileName, file, { cacheControl: '3600', upsert: true });
+
+        if (error) throw error;
+
+        const { data: urlData } = supabase.storage
+            .from('book_covers')
+            .getPublicUrl(fileName);
+
+        return urlData.publicUrl;
+    },
 
             renderUsers(container) {
                 let tableRows = mockUsers.map((user) => `
