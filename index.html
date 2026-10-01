@@ -1038,8 +1038,8 @@
 
     <script>
         const SPREADSHEET_CONFIG = {
-            TARGET_SHEET_ID: "115m5DYcwSiH6cEOkIBWgdsBG_59a6SPHyWj4V0EZqp8",
-            DEFAULT_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwzG-MzCnvZhzYZdO2sPCFGwu10uDLRQNHSXMaOwJTf79utt70zlZQ-8TO8HHn25b1I/exec"
+            TARGET_SHEET_ID: "1WC6DErIQDh2ZDE8i-YcaEH-PKqC-4-oQswQ1IoHk2LY",
+            DEFAULT_WEB_APP_URL: "https://script.google.com/macros/s/AKfycbwtQNWnkw516LKoEenl-HGPezwRduB_Qyh85IKp6ahYq8ozmBFmTVjwPHooTfDWPwgHSQ/exec"
         };
 
         // V30: Cover buku disesuaikan dengan file GitHub yang saat ini diunggah:
@@ -1049,11 +1049,11 @@
         // Contoh: B001 -> https://.../cover/B001.jpeg
         // Untuk ketahanan terhadap file lama, .jpg/.png/.webp tetap dicoba sebagai fallback.
         const GITHUB_BOOK_COVER_CONFIG = {
-            pagesBaseUrl: "https://datapekerjaan797-star.github.io/YKBUT-Press-Order-Management-System/cover/",
-            rawBaseUrl: "https://raw.githubusercontent.com/datapekerjaan797-star/YKBUT-Press-Order-Management-System/main/cover/",
-            legacyPagesBaseUrl: "https://datapekerjaan797-star.github.io/YKBUT-Press-Order-Management-System/covers/",
-            repoUrl: "https://github.com/datapekerjaan797-star/YKBUT-Press-Order-Management-System",
-            uploadUrl: "https://github.com/datapekerjaan797-star/YKBUT-Press-Order-Management-System/upload/main/cover",
+            pagesBaseUrl: "https://zikaigus123-web/YKBUT-PRESS/tree/main/cover",
+            rawBaseUrl: "https://raw.githubusercontent.com/zikaigus123-web/YKBUT-PRESS/tree/main/cover",
+            legacyPagesBaseUrl: "https://zikaigus123-web/YKBUT-PRESS/tree/main/cover",
+            repoUrl: "https://github.com/zikaigus123-web/YKBUT-PRESS",
+            uploadUrl: "https://github.com/zikaigus123-web/YKBUT-PRESS/upload/main/cover",
             preferredExtension: 'jpeg',
             fallbackExtensions: ['jpg', 'png', 'webp']
         };
@@ -1068,7 +1068,7 @@
             const value = String(url || '').trim();
             if (!value) return '';
             return value.replace(
-                'https://datapekerjaan797-star.github.io/YKBUT-Press-Order-Management-System/covers/',
+                'https://zikaigus123-web/YKBUT-PRESS/covers/',
                 GITHUB_BOOK_COVER_CONFIG.pagesBaseUrl
             );
         };
@@ -1169,7 +1169,7 @@
             // secara manual tetap dipertahankan selama bukan salah satu URL legacy.
             const storedUrl = String(localStorage.getItem('ykbut_webapp_url') || '').trim();
             const legacyUrls = new Set([
-                'https://script.google.com/macros/s/AKfycbwgtF-7VKmf9NYemPsxZ7C24BWi2TEUmIXdSnB0cioMjWf9YXuMk9yUmTeI1fVlaJq9/exec'
+                'https://script.google.com/macros/s/AKfycbwtQNWnkw516LKoEenl-HGPezwRduB_Qyh85IKp6ahYq8ozmBFmTVjwPHooTfDWPwgHSQ/exec'
             ]);
 
             if (!storedUrl || legacyUrls.has(storedUrl) || !isValidWebAppUrl(storedUrl)) {
